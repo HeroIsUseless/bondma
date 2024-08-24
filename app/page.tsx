@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ChevronDownIcon, Slash } from "lucide-react"
+import { Input } from "@/components/ui/input"
 
 export default function Home() {
   return (
@@ -63,7 +64,15 @@ export default function Home() {
             <TabsTrigger value="account">项目</TabsTrigger>
             <TabsTrigger value="password">设置</TabsTrigger>
           </TabsList>
-          <TabsContent value="account">Make changes to your account here.</TabsContent>
+          <TabsContent value="account">
+            <div className="flex">
+              <Input />
+              <Button>+添加</Button>
+            </div>
+            <div className="flex">
+              
+            </div>
+          </TabsContent>
           <TabsContent value="password">Change your password here.</TabsContent>
         </Tabs>
       </div>
