@@ -1,3 +1,4 @@
+'use client'
 import Image from "next/image";
 import { Button } from "@/components/ui/button"
 import {
@@ -17,8 +18,12 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ChevronDownIcon, Slash } from "lucide-react"
 import { Input } from "@/components/ui/input"
+import { Project } from "@/store/types";
+import { useAtom } from "jotai";
+import { projectsAtom } from "@/store/atoms";
 
 export default function Home() {
+  const [projects, setProjects] = useAtom(projectsAtom);
   return (
     <main className="flex w-full min-h-screen flex-col items-center">
       <header className="flex w-full items-center justify-between">
@@ -70,7 +75,11 @@ export default function Home() {
               <Button>+添加</Button>
             </div>
             <div className="flex">
-              
+              {projects.map(project => <>
+              <div className="bg-red-500">
+              {project.name}
+              </div>
+              </>)}
             </div>
           </TabsContent>
           <TabsContent value="password">Change your password here.</TabsContent>
