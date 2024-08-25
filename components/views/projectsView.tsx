@@ -38,7 +38,7 @@ export function ProjectsView() {
             </div>
             <div className="flex">
               {projects.map(project => <>
-              <div className="bg-red-500">
+              <div className="bg-red-500 w-[300px] h-[120px] m-[10px]">
               {project.name}
               </div>
               </>)}

@@ -1,3 +1,7 @@
+export type User = {
+    id: number,
+    name: string,
+}
 
 export type Team = {
     id: number,    
@@ -12,11 +16,6 @@ export type Project = {
     tokens: Token[],
     teamId: number,
     members: string[]
-}
-
-export type User = {
-    name: string,
-    id: number,
 }
 
 export type Translation = {

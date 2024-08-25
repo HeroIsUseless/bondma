@@ -19,11 +19,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ChevronDownIcon, Slash } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Project } from "@/store/types";
-import { useAtom } from "jotai";
-import { projectsAtom } from "@/store/atoms";
+import { useAtom, useAtomValue } from "jotai";
+import { nowProjectAtom, nowTeamAtom, projectsAtom, userAtom } from "@/store/atoms";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 
 export function HeaderView() {
+    const nowTeam = useAtomValue(nowTeamAtom);
+    const nowProject = useAtomValue(nowProjectAtom);
+    const user = useAtomValue(userAtom);
     return (
         <header className="flex w-full items-center justify-between">
             <Breadcrumb>
@@ -35,32 +39,35 @@ export function HeaderView() {
                         <Slash />
                     </BreadcrumbSeparator>
                     <BreadcrumbItem>
-                        <BreadcrumbLink href="/components">Components</BreadcrumbLink>
+                        <BreadcrumbLink href="/components">{nowTeam.name}</BreadcrumbLink>
                     </BreadcrumbItem>
-                    <BreadcrumbSeparator>
-                        <Slash />
-                    </BreadcrumbSeparator>
-                    <BreadcrumbItem>
-                        <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator>
-                        <Slash />
-                    </BreadcrumbSeparator>
-                    <BreadcrumbItem>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger className="flex items-center gap-1">
-                                Components
-                                <ChevronDownIcon />
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="start">
-                                <DropdownMenuItem>Documentation</DropdownMenuItem>
-                                <DropdownMenuItem>Themes</DropdownMenuItem>
-                                <DropdownMenuItem>GitHub</DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </BreadcrumbItem>
+                    {nowProject && <>
+                        <BreadcrumbSeparator>
+                            <Slash />
+                        </BreadcrumbSeparator>
+                        <BreadcrumbItem>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger className="flex items-center gap-1">
+                                    {nowProject.name}
+                                    <ChevronDownIcon />
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="start">
+                                    <DropdownMenuItem>Documentation</DropdownMenuItem>
+                                    <DropdownMenuItem>Themes</DropdownMenuItem>
+                                    <DropdownMenuItem>GitHub</DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </BreadcrumbItem>
+                    </>}
                 </BreadcrumbList>
             </Breadcrumb>
+            <div id="header-right" className="flex">
+                <Avatar>
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <p>{user.name}</p>
+            </div>
         </header>
     )
 }

@@ -19,19 +19,21 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ChevronDownIcon, Slash } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Project } from "@/store/types";
-import { useAtom } from "jotai";
-import { projectsAtom } from "@/store/atoms";
-import { HeaderView } from "@/components/views/headerVIew";
+import { useAtom, useAtomValue } from "jotai";
+import { nowProjectAtom, nowTeamAtom, projectsAtom } from "@/store/atoms";
+import { HeaderView } from "@/components/views/headerView";
 import { ProjectsView } from "@/components/views/projectsView";
 import { ProjectView } from "@/components/views/projectView";
 
 export default function Home() {
+  const nowTeam = useAtomValue(nowTeamAtom);
+  const nowProject = useAtomValue(nowProjectAtom);
   return (
     <main className="flex w-full min-h-screen flex-col items-center">
       <HeaderView />
       <div className="flex w-full items-center">
-        <ProjectsView />
-        <ProjectView /> 
+        {(!nowProject?.id) && <ProjectsView />}
+        {(!!nowProject?.id) && <ProjectView />}
       </div>
     </main>
   );

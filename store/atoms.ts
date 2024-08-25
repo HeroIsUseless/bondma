@@ -1,8 +1,13 @@
 import { atom } from "jotai";
-import { Team } from "./types";
+import { Team, User } from "./types";
+
+export const userAtom = atom<User>({
+    name: "mike",
+    id: 0,
+});
 
 export const nowTeamAtom = atom<Team>({
-    name: "",
+    name: "miketeam",
     id: 0,
     members: []
 });
@@ -15,7 +20,7 @@ export type Project = {
 }
 
 export const nowProjectAtom = atom<Project>({
-    name: "",
+    name: "myproject",
     id: 0,
 });
 
