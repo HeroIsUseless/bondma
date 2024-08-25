@@ -18,13 +18,13 @@ export type Project = {
     members: string[]
 }
 
-export type Translation = {
+export type Token = {
     id: string,
     key: string,
-    tokens: Token[],
+    translations: Translation[],
 }
 
-export type Token = {
+export type Translation = {
     lang: string,
     text: string,
 }
