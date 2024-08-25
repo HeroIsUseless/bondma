@@ -21,7 +21,7 @@ export type Project = {
 
 export const nowProjectAtom = atom<Project>({
     name: "myproject",
-    id: 0,
+    id: 10,
 });
 
 export const projectsAtom = atom<Project[]>([{
