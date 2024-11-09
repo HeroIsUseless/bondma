@@ -14,7 +14,7 @@ export const nowTeamAtom = atom<Team>({
 
 export const teamsAtom = atom<Team[]>([])
 
-export const nowProjectAtom = atom<Project | undefined>({
+export const nowProjectAtom = atom<Project | null>({
     name: "myproject",
     id: 10,
     defaultLang: "en",

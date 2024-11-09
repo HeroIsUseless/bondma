@@ -26,8 +26,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export function HeaderView() {
     const nowTeam = useAtomValue(nowTeamAtom);
-    const nowProject = useAtomValue(nowProjectAtom);
+    const [nowProject, setNowProject] = useAtom(nowProjectAtom);
     const user = useAtomValue(userAtom);
+    const onNowTeamClick = () => {
+        setNowProject(null);
+    };
     return (
         <header className="flex w-full items-center justify-between">
             <Breadcrumb>
@@ -39,7 +42,7 @@ export function HeaderView() {
                         <Slash />
                     </BreadcrumbSeparator>
                     <BreadcrumbItem>
-                        <BreadcrumbLink href="/components">{nowTeam.name}</BreadcrumbLink>
+                        <BreadcrumbLink onClick={onNowTeamClick}>{nowTeam.name}</BreadcrumbLink>
                     </BreadcrumbItem>
                     {nowProject && <>
                         <BreadcrumbSeparator>
