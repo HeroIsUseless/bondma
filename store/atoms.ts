@@ -18,7 +18,24 @@ export const nowProjectAtom = atom<Project | null>({
     name: "myproject",
     id: 10,
     defaultLang: "en",
-    tokens: [],
+    tokens: [
+        {
+          id: '1',
+          key: 'hello',
+          translations: [
+            { lang: 'en', text: 'Hello' },
+            { lang: 'es', text: 'Hola' }
+          ],
+        },
+        {
+          id: '2',
+          key: 'world',
+          translations: [
+            { lang: 'en', text: 'World' },
+            { lang: 'es', text: 'Mundo' }
+          ],
+        }
+      ],
     teamId: 0,
     members: []
 });

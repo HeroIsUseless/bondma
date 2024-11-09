@@ -30,6 +30,15 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"
 
 export function ProjectView() {
     const [nowProject, setNowProject] = useAtom(nowProjectAtom);
@@ -41,20 +50,42 @@ export function ProjectView() {
                 <TabsTrigger value="password">设置</TabsTrigger>
             </TabsList>
             <TabsContent value="account">
-                <h1>文案</h1>
+                <div className="justify-content-between flex items-center">
+                    <h1 className="mr-auto">文案</h1>
+                    <Button className="ml-auto">添加</Button>
+                </div>
+
                 <div className="flex">
                     <Input />
-                    <Button>搜索</Button>
+                    <Button>搜索kk</Button>
                 </div>
-                {nowProject?.tokens.map(token => {
-                    return <>
-                    {token.translations.map(translation => {
-                        return <>
-                            {translation.text}
-                        </>
-                    })}
-                    </>
-                })}
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>*</TableHead>
+                            <TableHead className="w-[100px]">key</TableHead>
+                            <TableHead>Chinese</TableHead>
+                            <TableHead>English</TableHead>
+                            <TableHead className="text-right">*</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {nowProject?.tokens.map(token => {
+                            return <>
+                                <TableRow>
+                                    <TableCell className="font-medium">{token.key}</TableCell>
+                                    {token.translations.map(translation => {
+                                        return <TableCell>
+                                            {translation.text}
+                                        </TableCell>
+                                    })}
+                                    <TableCell className="text-right">$250.00</TableCell>
+                                </TableRow>
+                            </>
+                        })}
+                    </TableBody>
+                </Table>
+
                 <Pagination>
                     <PaginationContent>
                         <PaginationItem>
@@ -73,7 +104,7 @@ export function ProjectView() {
                 </Pagination>
 
             </TabsContent>
-            <TabsContent value="password">Change your password here.</TabsContent>
+            <TabsContent value="password">Change</TabsContent>
         </Tabs>
     );
 }
