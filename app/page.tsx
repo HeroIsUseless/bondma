@@ -24,6 +24,7 @@ import { nowProjectAtom, nowTeamAtom, projectsAtom } from "@/store/atoms";
 import { HeaderView } from "@/components/views/headerView";
 import { ProjectsView } from "@/components/views/projectsView";
 import { ProjectView } from "@/components/views/projectView";
+import { TranslateDrawer } from "@/components/views/translateDrawer";
 
 export default function Home() {
   const nowTeam = useAtomValue(nowTeamAtom);
@@ -35,6 +36,7 @@ export default function Home() {
         {(!nowProject?.id) && <ProjectsView />}
         {(!!nowProject?.id) && <ProjectView />}
       </div>
+      <TranslateDrawer />
     </main>
   );
 }

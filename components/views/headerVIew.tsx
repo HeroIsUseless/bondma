@@ -26,8 +26,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export function HeaderView() {
     const nowTeam = useAtomValue(nowTeamAtom);
-    const nowProject = useAtomValue(nowProjectAtom);
+    const [nowProject, setNowProject] = useAtom(nowProjectAtom);
     const user = useAtomValue(userAtom);
+    const onNowTeamClick = () => {
+        setNowProject(null);
+    };
     return (
         <header className="flex w-full h-[64px] items-center justify-between bg-red-100">
             <Breadcrumb>
