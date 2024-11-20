@@ -29,17 +29,17 @@ export function HeaderView() {
     const nowProject = useAtomValue(nowProjectAtom);
     const user = useAtomValue(userAtom);
     return (
-        <header className="flex w-full items-center justify-between">
+        <header className="flex w-full h-[64px] items-center justify-between bg-red-100">
             <Breadcrumb>
                 <BreadcrumbList>
                     <BreadcrumbItem>
-                        <BreadcrumbLink href="/">汤师爷</BreadcrumbLink>
+                        <BreadcrumbLink href="/">公司</BreadcrumbLink>
                     </BreadcrumbItem>
                     <BreadcrumbSeparator>
                         <Slash />
                     </BreadcrumbSeparator>
                     <BreadcrumbItem>
-                        <BreadcrumbLink href="/components">{nowTeam.name}</BreadcrumbLink>
+                        <BreadcrumbLink href="/components">团队</BreadcrumbLink>
                     </BreadcrumbItem>
                     {nowProject && <>
                         <BreadcrumbSeparator>
@@ -48,13 +48,13 @@ export function HeaderView() {
                         <BreadcrumbItem>
                             <DropdownMenu>
                                 <DropdownMenuTrigger className="flex items-center gap-1">
-                                    {nowProject.name}
+                                    项目1
                                     <ChevronDownIcon />
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="start">
-                                    <DropdownMenuItem>Documentation</DropdownMenuItem>
-                                    <DropdownMenuItem>Themes</DropdownMenuItem>
-                                    <DropdownMenuItem>GitHub</DropdownMenuItem>
+                                    <DropdownMenuItem>项目2</DropdownMenuItem>
+                                    <DropdownMenuItem>项目3</DropdownMenuItem>
+                                    <DropdownMenuItem>项目4</DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
                         </BreadcrumbItem>
