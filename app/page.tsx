@@ -25,6 +25,7 @@ import { HeaderView } from "@/components/views/headerView";
 import { ProjectsView } from "@/components/views/projectsView";
 import { ProjectView } from "@/components/views/projectView";
 import { TranslateDrawer } from "@/components/views/translateDrawer";
+import Nav from "@/components/views/nav";
 
 export default function Home() {
   const nowTeam = useAtomValue(nowTeamAtom);
@@ -33,6 +34,7 @@ export default function Home() {
     <main className="flex w-full min-h-screen flex-col items-center">
       <HeaderView />
       <div className="flex w-full items-center">
+        <Nav />
         {(!nowProject?.id) && <ProjectsView />}
         {(!!nowProject?.id) && <ProjectView />}
       </div>
