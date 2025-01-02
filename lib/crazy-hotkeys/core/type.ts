@@ -1,4 +1,4 @@
-import { upperKeyToKey } from './const';
+import { secondKeys, upperKeyToKey } from './const';
 
 export interface HotkeysEvent {
   key: string;
@@ -14,30 +14,25 @@ export interface KeyHandler {
 }
 
 export class Hotkey {
-  private _key: string = '';
-  private _lowerKey: string = '';
-  public shift: boolean;
+  public active: '' | 'keydown' | 'keyup' = '';
+  private _keys: string[] = [];
+  private _lowerKeys: string[] = [];
+  private _secondKeys: string[] = [];
   constructor(
-    public active: '' | 'keydown' | 'keyup',
-    key: string,
-    public shortcut: string,
-    public method: KeyHandler,
-    shift?: boolean,
-    public ctrl?: boolean,
-    public alt?: boolean,
-    public meta?: boolean,
-    public keydown?: boolean,
-    public keyup?: boolean) {
-    this.key = key;
+    keys: string[],
+    public keydown?: KeyHandler,
+    public keyup?: KeyHandler) {
+    this.keys = keys;
+    this._secondKeys = keys.flatMap(key => (secondKeys.includes(key) ? [key] : []));
     this.shift = shift || (!!upperKeyToKey[key]);
   }
 
-  get key() {
+  get keys() {
     this.initLowerKey();
     return this._lowerKey;
   }
 
-  set key(value: string) {
+  set keys(value: string[]) {
     this._key = value;
   }
 
