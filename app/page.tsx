@@ -25,6 +25,7 @@ import { HeaderView } from "@/components/views/headerView";
 import { ProjectsView } from "@/components/views/projectsView";
 import { ProjectView } from "@/components/views/projectView";
 import { TranslateDrawer } from "@/components/views/translateDrawer";
+import Nav from "@/components/views/nav";
 
 export default function Home() {
   const nowTeam = useAtomValue(nowTeamAtom);

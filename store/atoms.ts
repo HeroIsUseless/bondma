@@ -2,12 +2,12 @@ import { atom } from "jotai";
 import { Project, Team, User } from "./types";
 
 export const userAtom = atom<User>({
-    name: "mike",
+    name: "xxxx",
     id: 0,
 });
 
 export const nowTeamAtom = atom<Team>({
-    name: "miketeam",
+    name: "xxxteam",
     id: 0,
     members: []
 });
@@ -15,9 +15,11 @@ export const nowTeamAtom = atom<Team>({
 export const teamsAtom = atom<Team[]>([])
 
 export const nowProjectAtom = atom<Project | null>({
-    name: "myproject",
+    name: "xxxproject",
     id: 10,
     defaultLang: "en",
+    teamId: 0,
+    members: ['xxx', 'yyy'],
     tokens: [
         {
           id: '1',
@@ -36,8 +38,6 @@ export const nowProjectAtom = atom<Project | null>({
           ],
         }
       ],
-    teamId: 0,
-    members: []
 });
 
 export const projectsAtom = atom<Project[]>([{
