@@ -32,11 +32,11 @@ export default function Home() {
   return (
     <main className="flex w-full min-h-screen flex-col items-center">
       <HeaderView />
-      <div className="flex w-full items-center">
-        {(!nowProject?.id) && <ProjectsView />}
-        {(!!nowProject?.id) && <ProjectView />}
+      <div className="flex w-full flex-col items-center">
+        {(!!nowProject?.id) && <ProjectsView />}
+        {(!nowProject?.id) && <ProjectView />}
       </div>
-      <TranslateDrawer />
+      {/* <TranslateDrawer /> */}
     </main>
   );
 }
