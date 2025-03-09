@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  password    String
+  email       String       @unique
+  memberships Membership[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Team {
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  url         String
+  memberships Membership[]
+  projects    Project[]    @relation("ProjectInTeam")
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Membership {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+  teamId String @db.ObjectId
+  team   Team   @relation(fields: [teamId], references: [id])
+  role   String // "owner", "manager", "member"
+}
+
+model Project {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  url         String
+  defaultLang String?
+  tokens      Token[]
+  teamId      String   @db.ObjectId
+  team        Team     @relation("ProjectInTeam", fields: [teamId], references: [id])
+  description String?
+  languages   String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Token {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  key          String 
+  translations Json
+  tags         String[]
+  comment      String?
+  projectId    String   @db.ObjectId
+  Project      Project  @relation(fields: [projectId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}

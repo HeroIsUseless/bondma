@@ -1,0 +1,305 @@
+{
+  "metadata": {
+    "projectName": "okm",
+    "projectId": "67c6ce6d4992cad581e38f3f",
+    "exportDate": "2025-03-06T03:23:37.147Z",
+    "languages": [
+      "zh-CN",
+      "en-US"
+    ]
+  },
+  "translations": {
+    "sdsc": {
+      "en-US": "saefg"
+    },
+    "ewfds": {
+      "en-US": "wefsd"
+    },
+    "hello": {
+      "word": {
+        "en-US": "dscedv"
+      }
+    },
+    "welcome": {
+      "title": {
+        "zh-CN": "使用 <span>汤师爷</span> 简化翻译流程",
+        "en-US": "Simplify Translation Process with <span>Bondma</span>"
+      },
+      "tagline": {
+        "zh-CN": "本地化管理解决方案",
+        "en-US": "Localization Management Solution"
+      },
+      "description": {
+        "zh-CN": "专为开发团队设计的本地化管理平台，帮助您高效管理多语言项目，无缝协作翻译。",
+        "en-US": "A localization management platform designed for development teams, helping you efficiently manage multilingual projects and collaborate seamlessly."
+      },
+      "getStarted": {
+        "zh-CN": "开始使用",
+        "en-US": "Get Started"
+      },
+      "learnMore": {
+        "zh-CN": "了解更多",
+        "en-US": "Learn More"
+      }
+    },
+    "header": {
+      "title": {
+        "zh-CN": "汤师爷",
+        "en-US": "BondMa"
+      }
+    },
+    "features": {
+      "title": {
+        "zh-CN": "强大特性",
+        "en-US": "Powerful Features"
+      },
+      "description": {
+        "zh-CN": "Bondma 提供专业的本地化工具，帮助团队更高效地管理多语言内容",
+        "en-US": "Bondma provides professional localization tools to help teams manage multilingual content more efficiently"
+      },
+      "items": {
+        "0": {
+          "title": {
+            "zh-CN": "多语言支持",
+            "en-US": "Multilingual Support"
+          },
+          "description": {
+            "zh-CN": "支持多种语言，满足全球化需求，实现无缝本地化体验。",
+            "en-US": "Support for multiple languages, meeting global needs with seamless localization experience."
+          }
+        },
+        "1": {
+          "title": {
+            "zh-CN": "协作翻译",
+            "en-US": "Collaborative Translation"
+          },
+          "description": {
+            "zh-CN": "团队成员可同时参与翻译工作，提高效率，保证质量。",
+            "en-US": "Team members can participate in translation work simultaneously, improving efficiency and ensuring quality."
+          }
+        },
+        "2": {
+          "title": {
+            "zh-CN": "项目管理",
+            "en-US": "Project Management"
+          },
+          "description": {
+            "zh-CN": "在一个平台上管理多个项目，清晰组织不同项目的翻译资源。",
+            "en-US": "Manage multiple projects on one platform, clearly organizing translation resources for different projects."
+          }
+        },
+        "3": {
+          "title": {
+            "zh-CN": "开发友好",
+            "en-US": "Developer Friendly"
+          },
+          "description": {
+            "zh-CN": "支持多种格式导入导出，与现代开发工具链无缝集成。",
+            "en-US": "Support for import/export in multiple formats, seamless integration with modern development toolchains."
+          }
+        },
+        "4": {
+          "title": {
+            "zh-CN": "安全可靠",
+            "en-US": "Secure & Reliable"
+          },
+          "description": {
+            "zh-CN": "精细的权限控制，确保翻译内容的安全和数据隐私。",
+            "en-US": "Fine-grained permission control ensures the security of translation content and data privacy."
+          }
+        },
+        "5": {
+          "title": {
+            "zh-CN": "开源项目",
+            "en-US": "Open Source Project"
+          },
+          "description": {
+            "zh-CN": "完全开源，社区驱动，持续改进优化功能和体验。",
+            "en-US": "Completely open source, community-driven, continuously improving features and experience."
+          }
+        }
+      }
+    },
+    "workflow": {
+      "title": {
+        "zh-CN": "简化的工作流程",
+        "en-US": "Simplified Workflow"
+      },
+      "description": {
+        "zh-CN": "从导入项目到导出翻译，Bondma 提供端到端的本地化管理解决方案",
+        "en-US": "From project import to translation export, Bondma provides end-to-end localization management solutions"
+      },
+      "tabs": {
+        "import": {
+          "zh-CN": "导入项目",
+          "en-US": "Import Project"
+        },
+        "translate": {
+          "zh-CN": "翻译管理",
+          "en-US": "Translation Management"
+        },
+        "export": {
+          "zh-CN": "导出与集成",
+          "en-US": "Export & Integration"
+        }
+      },
+      "steps": {
+        "import": {
+          "title": {
+            "zh-CN": "导入项目",
+            "en-US": "Import Project"
+          },
+          "description": {
+            "zh-CN": "简单几步，高效完成导入项目流程",
+            "en-US": "Complete the import project process efficiently in a few simple steps"
+          },
+          "steps": {
+            "0": {
+              "zh-CN": "创建团队和项目",
+              "en-US": "Create team and project"
+            },
+            "1": {
+              "zh-CN": "导入现有翻译文件",
+              "en-US": "Import existing translation files"
+            },
+            "2": {
+              "zh-CN": "自动识别语言和结构",
+              "en-US": "Automatic language and structure recognition"
+            },
+            "en-US": "Create team and project,Import existing translation files,Automatic language and structure recognition"
+          }
+        },
+        "translate": {
+          "title": {
+            "zh-CN": "翻译管理",
+            "en-US": "Translation Management"
+          },
+          "description": {
+            "zh-CN": "简单几步，高效完成翻译管理流程",
+            "en-US": "Complete the translation management process efficiently in a few simple steps"
+          },
+          "steps": {
+            "0": {
+              "zh-CN": "邀请团队成员",
+              "en-US": "Invite team members"
+            },
+            "1": {
+              "zh-CN": "分配翻译任务",
+              "en-US": "Assign translation tasks"
+            },
+            "2": {
+              "zh-CN": "实时协作编辑",
+              "en-US": "Real-time collaborative editing"
+            },
+            "3": {
+              "zh-CN": "审核翻译质量",
+              "en-US": "Review translation quality"
+            },
+            "en-US": "Invite team members,Assign translation tasks,Real-time collaborative editing,Review translation quality"
+          }
+        },
+        "export": {
+          "title": {
+            "zh-CN": "导出与集成",
+            "en-US": "Export & Integration"
+          },
+          "description": {
+            "zh-CN": "简单几步，高效完成导出与集成流程",
+            "en-US": "Complete the export and integration process efficiently in a few simple steps"
+          },
+          "steps": {
+            "0": {
+              "zh-CN": "导出多种格式文件",
+              "en-US": "Export files in multiple formats"
+            },
+            "1": {
+              "zh-CN": "与CI/CD流程集成",
+              "en-US": "Integrate with CI/CD processes"
+            },
+            "2": {
+              "zh-CN": "自动化部署更新",
+              "en-US": "Automated deployment updates"
+            },
+            "en-US": "Export files in multiple formats,Integrate with CI/CD processes,Automated deployment updates"
+          }
+        }
+      },
+      "viewDocs": {
+        "zh-CN": "查看详细文档",
+        "en-US": "View Detailed Documentation"
+      }
+    },
+    "cases": {
+      "title": {
+        "zh-CN": "用户案例",
+        "en-US": "User Cases"
+      },
+      "description": {
+        "zh-CN": "看看其他团队如何使用 Bondma 提升本地化效率",
+        "en-US": "See how other teams use Bondma to improve localization efficiency"
+      },
+      "case1": {
+        "title": {
+          "zh-CN": "TechGlobal 科技公司",
+          "en-US": "TechGlobal"
+        },
+        "subtitle": {
+          "zh-CN": "全球化应用的本地化挑战",
+          "en-US": "Localization challenges for global applications"
+        },
+        "quote": {
+          "zh-CN": "\"使用 Bondma 后，我们将翻译效率提高了60%，现在可以同时支持20种语言而不增加团队规模。\"",
+          "en-US": "\"After using Bondma, we increased our translation efficiency by 60% and now support 20 languages without expanding our team.\""
+        },
+        "readMore": {
+          "zh-CN": "阅读完整案例",
+          "en-US": "Read Full Case Study"
+        }
+      },
+      "case2": {
+        "title": {
+          "zh-CN": "CreativeStudio 创意工作室",
+          "en-US": "CreativeStudio"
+        },
+        "subtitle": {
+          "zh-CN": "多平台内容的一致性管理",
+          "en-US": "Consistent management of multi-platform content"
+        },
+        "quote": {
+          "zh-CN": "\"Bondma 帮助我们在多个平台上保持品牌信息的一致性，翻译错误减少了90%。\"",
+          "en-US": "\"Bondma helped us maintain brand messaging consistency across multiple platforms, reducing translation errors by 90%.\""
+        },
+        "readMore": {
+          "zh-CN": "阅读完整案例",
+          "en-US": "Read Full Case Study"
+        }
+      }
+    },
+    "cta": {
+      "title": {
+        "zh-CN": "准备好开始使用了吗？",
+        "en-US": "Ready to get started?"
+      },
+      "description": {
+        "zh-CN": "立即加入 Bondma，体验高效的本地化管理，让您的产品说出全世界的语言。",
+        "en-US": "Join Bondma now and experience efficient localization management, letting your product speak every language in the world."
+      },
+      "register": {
+        "zh-CN": "免费注册",
+        "en-US": "Register for Free"
+      },
+      "demo": {
+        "zh-CN": "预约演示",
+        "en-US": "Schedule a Demo"
+      },
+      "note": {
+        "zh-CN": "免费版本包含基本功能，可随时升级",
+        "en-US": "Free version includes basic features, upgradeable anytime"
+      }
+    },
+    "language": {
+      "zh-CN": "语言",
+      "en-US": "Language"
+    }
+  }
+}

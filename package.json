@@ -1,0 +1,17 @@
+{
+  "name": "bondma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "packageManager": "pnpm@8.0.0 || >8.0.0"
+}

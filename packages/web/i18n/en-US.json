@@ -1,0 +1,851 @@
+{
+  "sdsc": "saefg",
+  "ewfds": "wefsd",
+  "hello": {
+    "word": "dscedv"
+  },
+  "welcome": {
+    "title": "Simplify Translation Process with <span>BondMa</span>",
+    "tagline": "Localization Management Solution",
+    "description": "A localization management platform designed for development teams, helping you efficiently manage multilingual projects and collaborate seamlessly on translations.",
+    "getStarted": "Get Started",
+    "learnMore": "Learn More"
+  },
+  "header": {
+    "title": "BondMa",
+    "githubRepo": "GitHub Repository",
+    "switchLanguage": "Switch Language",
+    "languages": {
+      "chinese": "Chinese",
+      "english": "English"
+    },
+    "user": "User",
+    "profile": "Profile",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register"
+  },
+  "features": {
+    "title": "Powerful Features",
+    "description": "Bondma provides professional localization tools to help teams manage multilingual content more efficiently",
+    "items": {
+      "0": {
+        "title": "Multilingual Support",
+        "description": "Support multiple languages to meet global needs and achieve seamless localization experience."
+      },
+      "1": {
+        "title": "Collaborative Translation",
+        "description": "Team members can participate in translation work simultaneously, improving efficiency and ensuring quality."
+      },
+      "2": {
+        "title": "Project Management",
+        "description": "Manage multiple projects on one platform, clearly organizing translation resources for different projects."
+      },
+      "3": {
+        "title": "Developer Friendly",
+        "description": "Support various formats for import and export, seamlessly integrating with modern development toolchains."
+      },
+      "4": {
+        "title": "Secure and Reliable",
+        "description": "Fine-grained permission control ensures the security of translated content and data privacy."
+      },
+      "5": {
+        "title": "Open Source",
+        "description": "Completely open source, community-driven, continuously improving functions and experience."
+      }
+    }
+  },
+  "workflow": {
+    "title": "Simplified Workflow",
+    "description": "From importing projects to exporting translations, Bondma provides an end-to-end localization management solution",
+    "tabs": {
+      "import": "Import Project",
+      "translate": "Translation Management",
+      "export": "Export & Integration"
+    },
+    "steps": {
+      "import": {
+        "title": "Import Project",
+        "description": "Complete the project import process efficiently in a few simple steps",
+        "steps": {
+          "0": "Create team and project",
+          "1": "Import existing translation files",
+          "2": "Automatically identify languages and structures"
+        }
+      },
+      "translate": {
+        "title": "Translation Management",
+        "description": "Complete the translation management process efficiently in a few simple steps",
+        "steps": {
+          "0": "Invite team members",
+          "1": "Assign translation tasks",
+          "2": "Real-time collaborative editing",
+          "3": "Review translation quality"
+        }
+      },
+      "export": {
+        "title": "Export & Integration",
+        "description": "Complete the export and integration process efficiently in a few simple steps",
+        "steps": {
+          "0": "Export files in various formats",
+          "1": "Integrate with CI/CD process",
+          "2": "Automated deployment updates"
+        }
+      }
+    },
+    "viewDocs": "View detailed documentation"
+  },
+  "cases": {
+    "title": "User Cases",
+    "description": "See how other teams use Bondma to improve localization efficiency",
+    "case1": {
+      "title": "TechGlobal",
+      "subtitle": "Localization Challenges for Global Applications",
+      "quote": "\"After using Bondma, we increased our translation efficiency by 60%, now we can support 20 languages simultaneously without expanding the team.\"",
+      "readMore": "Read full case"
+    },
+    "case2": {
+      "title": "CreativeStudio",
+      "subtitle": "Consistent Management of Multi-platform Content",
+      "quote": "\"Bondma helps us maintain the consistency of brand information across multiple platforms, reducing translation errors by 90%.\"",
+      "readMore": "Read full case"
+    }
+  },
+  "cta": {
+    "title": "Ready to get started?",
+    "description": "Join Bondma now to experience efficient localization management and make your product speak the languages of the world.",
+    "register": "Register for Free",
+    "demo": "Schedule a Demo",
+    "note": "Free version includes basic features, upgradable anytime"
+  },
+  "language": "Language",
+  "login": {
+    "title": "Login",
+    "description": "Sign in to your account to continue",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "loginButton": "Login",
+    "loginInProgress": "Logging in...",
+    "noAccount": "Don't have an account?",
+    "register": "Sign up now",
+    "backToHome": "Back to home",
+    "errors": {
+      "requiredFields": "Please fill in all required fields",
+      "loginFailed": "Login Failed",
+      "defaultError": "Unable to login, please check your credentials"
+    },
+    "success": {
+      "title": "Login Successful",
+      "description": "Welcome back!"
+    }
+  },
+  "register": {
+    "title": "Create Account",
+    "description": "Register a new account to start using BondMa",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "registerButton": "Register",
+    "registerInProgress": "Registering...",
+    "hasAccount": "Already have an account?",
+    "login": "Login",
+    "backToHome": "Back to home",
+    "placeholders": {
+      "username": "Your name",
+      "email": "your@email.com",
+      "password": "********"
+    },
+    "errors": {
+      "requiredFields": "Please fill in all required fields",
+      "passwordMismatch": "Passwords do not match",
+      "registerFailed": "Registration Failed",
+      "defaultError": "Unable to create account, please try again later"
+    },
+    "success": {
+      "title": "Registration Successful",
+      "description": "Your account has been successfully created"
+    }
+  },
+  "teams": {
+    "title": "My Teams",
+    "createTeam": "Create New Team",
+    "loadFailed": "Failed to Load",
+    "loadFailedDescription": "Unable to load team list",
+    "empty": {
+      "title": "You haven't joined any teams yet",
+      "description": "Create a new team or request to join an existing one",
+      "createButton": "Create Your First Team"
+    },
+    "card": {
+      "projects": "Projects",
+      "members": "Members",
+      "viewDetails": "View Details",
+      "delete": "Delete",
+      "viewMembers": "View Members",
+      "deleteTitle": "Delete Team",
+      "deleteDescription": "This action cannot be undone. The team, projects, and all related translation data will be permanently deleted.",
+      "deleteConfirm": "Yes, Delete Team",
+      "deleteCancel": "Cancel",
+      "projectList": "Project List",
+      "viewAll": "View All",
+      "loading": "Loading",
+      "noProjects": "No Projects Yet",
+      "createFirstProject": "Create Your First Project",
+      "moreProjects": "{count} more projects...",
+      "enterTeam": "Enter Team",
+      "editTeam": "Edit Team",
+      "projectsCount": "{count} projects",
+      "membersCount": "{count} members",
+      "searchProjects": "Search projects...",
+      "newProject": "New Project",
+      "projectName": "Project Name",
+      "description": "Description",
+      "languages": "Languages",
+      "updatedTime": "Updated Time",
+      "noDescription": "No description",
+      "noLanguage": "No language",
+      "languagesCount": "{count} languages",
+      "showingResults": "Showing {count} matching projects (out of {total})",
+      "totalProjects": "Total {count} projects",
+      "noMatchingProjects": "No matching projects found",
+      "close": "Close",
+      "listTitle": "Projects in {teamName}",
+      "projectsTotal": "This team has {count} projects. Click on a project name to view details"
+    },
+    "create": {
+      "title": "Create New Team",
+      "name": "Team Name",
+      "namePlaceholder": "Enter team name",
+      "url": "Team URL",
+      "urlPlaceholder": "team-url",
+      "urlPrefix": "bondma.com/team/",
+      "create": "Create",
+      "cancel": "Cancel"
+    },
+    "edit": {
+      "title": "Edit Team",
+      "description": "Update your team information.",
+      "name": "Team Name",
+      "namePlaceholder": "Enter team name",
+      "url": "Team URL",
+      "urlPlaceholder": "Enter team URL",
+      "update": "Update Team",
+      "updateInProgress": "Updating...",
+      "cancel": "Cancel"
+    },
+    "members": {
+      "title": "Team Members in {teamName}",
+      "description": "Manage team members and assign permissions",
+      "addNew": "Add New Member",
+      "searchPlaceholder": "Search users...",
+      "selectRole": "Select role",
+      "roles": {
+        "admin": "Admin",
+        "member": "Member"
+      },
+      "addButton": "Add",
+      "selected": "Selected",
+      "noUsersFound": "No matching users found",
+      "membersList": "Team Members ({count})",
+      "noMembers": "No members in this team yet",
+      "close": "Close",
+      "errors": {
+        "searchFailed": "Failed to search users",
+        "selectUser": "Please select a user first",
+        "addFailed": "Failed to add member",
+        "loadFailed": "Failed to load team members"
+      },
+      "success": {
+        "memberAdded": "Member added successfully"
+      }
+    },
+    "settings": {
+      "title": "Team Settings",
+      "tabs": {
+        "general": "General Settings",
+        "billing": "Billing & Usage",
+        "members": "Member Management"
+      },
+      "general": {
+        "title": "Team Information",
+        "description": "Manage your team information and URL",
+        "name": "Team Name",
+        "namePlaceholder": "Enter team name",
+        "url": "Team URL",
+        "urlPlaceholder": "your-team-url",
+        "urlPrefix": "bondma.com/team/",
+        "saveSettings": "Save Settings",
+        "characters": "characters",
+        "errors": {
+          "nameRequired": "Team name is required",
+          "nameTooLong": "Team name cannot exceed 12 characters",
+          "urlRequired": "URL is required",
+          "urlTooLong": "URL cannot exceed 24 characters"
+        }
+      },
+      "danger": {
+        "title": "Danger Zone",
+        "description": "These actions cannot be undone, please proceed with caution",
+        "warning": "Warning",
+        "warningMessage": "After deleting the team, all team data will be permanently deleted. This action cannot be undone.",
+        "deleteTeam": "Delete Team",
+        "confirmDelete": "Confirm Team Deletion?",
+        "confirmDeleteDescription": "This action will permanently delete the \"{teamName}\" team and all its data. This action cannot be undone. Please enter the team name \"{teamName}\" to confirm deletion.",
+        "confirmDeletePlaceholder": "Enter {teamName} to confirm",
+        "cancel": "Cancel",
+        "confirmButton": "Confirm Deletion",
+        "urlValidation": "URL can only contain letters, numbers, and underscores, maximum 24 characters"
+      },
+      "members": {
+        "title": "Team Members",
+        "description": "Manage team members and permissions",
+        "addPlaceholder": "Enter email to add member",
+        "add": "Add Member",
+        "tableHeaders": {
+          "member": "Member",
+          "email": "Email",
+          "role": "Role",
+          "actions": "Actions"
+        },
+        "roles": {
+          "admin": "Admin",
+          "editor": "Editor",
+          "readonly": "Read-only"
+        },
+        "dropdown": {
+          "actions": "Actions",
+          "setAdmin": "Set as Admin",
+          "setEditor": "Set as Editor",
+          "setReadonly": "Set as Read-only",
+          "remove": "Remove Member"
+        },
+        "noTeamSelected": "Please select a team first"
+      },
+      "billing": {
+        "title": "Billing Plans & Usage",
+        "description": "Manage your billing plan and view resource usage",
+        "currentPlan": "Current Plan",
+        "free": "Free",
+        "freePlanDesc": "Basic features, suitable for small teams",
+        "upgradePro": "Upgrade to Pro",
+        "resourceUsage": "Resource Usage",
+        "projects": "Projects",
+        "members": "Members",
+        "storage": "Storage",
+        "planComparison": "Plan Comparison",
+        "freeTier": "Free",
+        "proTier": "Pro",
+        "enterpriseTier": "Enterprise",
+        "perMonth": "${price}/month",
+        "currentPlanButton": "Current Plan",
+        "upgradeToProButton": "Upgrade to Pro",
+        "upgradeToEnterpriseButton": "Upgrade to Enterprise",
+        "freeTierFeatures": {
+          "projects": "Up to 5 projects",
+          "members": "Up to 10 members",
+          "storage": "1GB storage",
+          "support": "Basic feature support"
+        },
+        "proTierFeatures": {
+          "projects": "Up to 20 projects",
+          "members": "Up to 30 members",
+          "storage": "10GB storage",
+          "advancedFeatures": "Advanced feature support",
+          "prioritySupport": "Priority customer support"
+        },
+        "enterpriseTierFeatures": {
+          "projects": "Unlimited projects",
+          "members": "Unlimited members",
+          "storage": "100GB storage",
+          "allFeatures": "All advanced features",
+          "dedicatedManager": "Dedicated account manager",
+          "customDomain": "Custom domain"
+        }
+      }
+    }
+  },
+  "projects": {
+    "searchPlaceholder": "Search projects",
+    "newProject": "New Project",
+    "noMatchingProjects": "No matching projects found",
+    "noLanguages": "No languages",
+    "tokensCount": "{count} translations",
+    "tabs": {
+      "projects": "Projects",
+      "settings": "Settings"
+    },
+    "loadFailed": "Failed to load projects",
+    "createSuccess": "Project created successfully",
+    "createFailed": "Failed to create project",
+    "errors": {
+      "nameRequired": "Project name is required",
+      "languageRequired": "Please select at least one language",
+      "createFailed": "Failed to create project"
+    },
+    "create": {
+      "title": "Create New Project",
+      "description": "Please fill in the project details",
+      "name": "Project Name",
+      "namePlaceholder": "Enter project name",
+      "descriptionPlaceholder": "Enter project description (optional)",
+      "languages": "Supported Languages",
+      "createButton": "Create",
+      "customLanguagePlaceholder": "Custom language code, e.g. th-TH"
+    },
+    "languages": {
+      "zhCN": "Chinese (Simplified)",
+      "enUS": "English (US)",
+      "jaJP": "Japanese",
+      "koKR": "Korean",
+      "frFR": "French",
+      "deDE": "German",
+      "esES": "Spanish",
+      "ruRU": "Russian"
+    }
+  },
+  "common": {
+    "cancel": "Cancel",
+    "create": "Create",
+    "update": "Update",
+    "delete": "Delete",
+    "save": "Save",
+    "add": "Add"
+  },
+  "profile": {
+    "title": "Profile",
+    "description": "Update your personal information and avatar",
+    "loading": "Loading",
+    "notLoggedIn": "Not Logged In",
+    "loginRequired": "Please login to view your profile",
+    "goToLogin": "Go to Login",
+    "form": {
+      "username": "Username",
+      "email": "Email",
+      "avatarUrl": "Avatar URL",
+      "avatarPlaceholder": "https://example.com/avatar.jpg",
+      "saveChanges": "Save Changes",
+      "saving": "Saving...",
+      "validation": {
+        "nameRequired": "Username must be at least 2 characters",
+        "emailInvalid": "Please enter a valid email address",
+        "avatarUrlInvalid": "Please enter a valid image URL"
+      }
+    },
+    "notifications": {
+      "updateSuccess": "Profile Updated",
+      "updateSuccessDesc": "Your personal information has been saved successfully",
+      "updateFailed": "Update Failed"
+    }
+  },
+  "tutorial": {
+    "pageTitle": "Bondma Usage Tutorial",
+    "pageDescription": "This tutorial will help you understand how to use the Bondma platform to efficiently manage multilingual translation projects, from basic features to advanced configurations.",
+    "backToHome": "Back to Home",
+    "needHelp": "Need More Help?",
+    "helpDescription": "If you have other questions or need personalized support, please feel free to contact us.",
+    "contactSupport": "Contact Support Team",
+    "imageExample": "Image Example",
+    "steps": "Steps",
+    "gotoConsole": "Go to Console",
+    "sections": {
+      "gettingStarted": {
+        "title": "Getting Started",
+        "overview": {
+          "title": "System Overview",
+          "description": "Bondma is a localization management platform that helps teams collaborate on translations and manage multilingual content.",
+          "steps": {
+            "0": "Register an account and log in to the system",
+            "1": "Create or join a team",
+            "2": "Create a translation project",
+            "3": "Invite team members to collaborate"
+          }
+        },
+        "quickstart": {
+          "title": "Quick Start",
+          "description": "Basic steps from creating your first project to exporting translations.",
+          "steps": {
+            "0": "Create a new project in your team",
+            "1": "Import existing translation files",
+            "2": "Assign translation tasks",
+            "3": "Complete translations and export"
+          }
+        }
+      },
+      "teamManagement": {
+        "title": "Team Management",
+        "create": {
+          "title": "Creating and Managing Teams",
+          "description": "Learn how to create and manage teams, set roles and permissions.",
+          "steps": {
+            "0": "Create a new team and set team information",
+            "1": "Invite members to join the team",
+            "2": "Set member roles (owner, admin, translator)",
+            "3": "Manage team permissions and access control"
+          }
+        },
+        "collaboration": {
+          "title": "Team Collaboration",
+          "description": "Understand how to efficiently organize team members to work together.",
+          "steps": {
+            "0": "Set up team workflow",
+            "1": "Assign translation and review tasks",
+            "2": "Track work progress",
+            "3": "Manage team workload and efficiency"
+          }
+        }
+      },
+      "projects": {
+        "title": "Project Management",
+        "setup": {
+          "title": "Creating and Configuring Projects",
+          "description": "Learn how to create projects and configure them in detail.",
+          "steps": {
+            "0": "Create a new project and set basic information",
+            "1": "Configure source and target languages",
+            "2": "Set up project glossary and style guide",
+            "3": "Configure project workflow and review process"
+          }
+        },
+        "importExport": {
+          "title": "Importing and Exporting Files",
+          "description": "Learn about supported file formats and data exchange methods.",
+          "steps": {
+            "0": "Supported import file formats (JSON, YAML, CSV, etc.)",
+            "1": "How to properly import existing translations",
+            "2": "Export translations in multiple formats",
+            "3": "Integrate with development workflow"
+          }
+        }
+      },
+      "translation": {
+        "title": "Translation Features",
+        "interface": {
+          "title": "Translation Interface",
+          "description": "Learn how to use the translation editor to efficiently complete translations.",
+          "steps": {
+            "0": "Translation editor interface overview",
+            "1": "Translation suggestions and auto-fill features",
+            "2": "Translation history and version comparison",
+            "3": "Bulk operations and filtering functions"
+          }
+        },
+        "quality": {
+          "title": "Translation Quality Management",
+          "description": "Learn how to ensure translation quality and consistency.",
+          "steps": {
+            "0": "Set up and use quality check rules",
+            "1": "Implement translation review process",
+            "2": "Manage terminology and style consistency",
+            "3": "Generate quality reports and analysis"
+          }
+        }
+      },
+      "advanced": {
+        "title": "Advanced Features",
+        "api": {
+          "title": "API Integration",
+          "description": "How to use Bondma API to implement automated workflows.",
+          "steps": {
+            "0": "API overview and authentication",
+            "1": "Common API endpoints and use cases",
+            "2": "Automating translation processes",
+            "3": "Integrating with CI/CD systems"
+          }
+        },
+        "customize": {
+          "title": "Customization and Extension",
+          "description": "Customize the Bondma platform according to your needs.",
+          "steps": {
+            "0": "Custom workflows and statuses",
+            "1": "Extension features and plugins",
+            "2": "Advanced data import and export options",
+            "3": "Integration with other tools"
+          }
+        }
+      }
+    }
+  },
+  "teamPage": {
+    "permissionCheck": "Checking permissions",
+    "noPermission": "No Access Permission",
+    "noPermissionDescription": "You don't have permission to access team ID: {teamId}",
+    "possibleReasons": "Possible reasons:",
+    "notMember": "You are not a member of this team",
+    "insufficientPermission": "Your account has insufficient permissions",
+    "teamNotExist": "The team may not exist",
+    "backToTeams": "Back to Team List",
+    "backToHome": "Back to Home"
+  },
+  "projectTokens": {
+    "title": "Translations",
+    "addToken": "Add Translation",
+    "searchPlaceholder": "Search translations",
+    "selectTag": "Select Tag",
+    "allTags": "All Tags",
+    "success": {
+      "tokenCreated": "Translation created successfully",
+      "tokenUpdated": "Translation updated successfully",
+      "tokenDeleted": "Translation deleted"
+    },
+    "errors": {
+      "projectIdMissing": "Project ID is missing",
+      "createFailed": "Failed to add translation",
+      "updateFailed": "Failed to update translation",
+      "deleteFailed": "Failed to delete translation"
+    }
+  },
+  "tokenForm": {
+    "addTitle": "Add Translation",
+    "editTitle": "Edit Translation",
+    "description": "Please enter key and translation fields",
+    "keyPlaceholder": "Enter key",
+    "translationPlaceholder": "Enter {language} translation",
+    "tags": "Tags",
+    "tagsPlaceholder": "Separate multiple tags with commas",
+    "comment": "Comment",
+    "commentPlaceholder": "Enter comment",
+    "submit": "Submit",
+    "update": "Update",
+    "cancel": "Cancel",
+    "submitting": "Submitting..."
+  },
+  "tokenTable": {
+    "tags": "Tags",
+    "actions": "Actions",
+    "deleteConfirmTitle": "Confirm Translation Deletion?",
+    "deleteConfirmDescription": "This action cannot be undone. The translation data will be permanently removed.",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "noData": "No data available"
+  },
+  "project": {
+    "tabs": {
+      "overview": "Overview",
+      "tokens": "Translations",
+      "task": "Tasks",
+      "import": "Import",
+      "export": "Export",
+      "setting": "Settings"
+    },
+    "import": {
+      "title": "Import Translations",
+      "description": "Import translation data from files to \"{projectName}\" project",
+      "fileImport": "File Import",
+      "fileImportDesc": "Supports JSON, CSV, XML, and YAML file formats",
+      "importMethod": "Import Method",
+      "appendMode": "Append (Keep existing data)",
+      "replaceMode": "Replace (Clear existing data)",
+      "targetLanguage": "Target Language",
+      "selectTargetLanguage": "Select target language for import",
+      "dragDropArea": {
+        "dragActive": "Drop the file here",
+        "instructions": "Click or drag file here to import",
+        "supportedFormats": "Supports JSON, CSV, XML, YAML formats",
+        "chooseAnotherFile": "Choose another file"
+      },
+      "importNotes": {
+        "title": "Import Notes:",
+        "jsonNote": "JSON files should contain valid translation key-value pairs",
+        "csvNote": "CSV files should have headers in the first row, with keys in the first column and values in the second",
+        "formatNote": "Format will be automatically inferred based on file type"
+      },
+      "importButton": "Import File",
+      "importing": "Importing...",
+      "selectFileFirst": "Please select a file first",
+      "selectLanguageFirst": "Please select a target language",
+      "status": {
+        "success": "Import Successful",
+        "error": "Import Failed",
+        "processing": "Processing file..."
+      },
+      "stats": {
+        "total": "Total processed: {total} items",
+        "added": "- Added: {count}",
+        "updated": "- Updated: {count}",
+        "unchanged": "- Unchanged: {count}"
+      }
+    },
+    "export": {
+      "title": "Export Translations",
+      "description": "Download translation data from \"{projectName}\" project",
+      "settings": "Export Settings",
+      "settingsDesc": "Configure the export format and content",
+      "fileFormat": "File Format",
+      "contentSettings": "Content Settings",
+      "formatLabel": "File Format",
+      "jsonFormat": "JSON",
+      "jsonDesc": "Suitable for JavaScript/Frontend",
+      "csvFormat": "CSV",
+      "csvDesc": "Suitable for spreadsheet software",
+      "xmlFormat": "XML",
+      "xmlDesc": "Suitable for Android/iOS",
+      "yamlFormat": "YAML",
+      "yamlDesc": "Suitable for configuration files",
+      "exportScope": "Export Scope",
+      "scopeAll": "All translations",
+      "scopeCompleted": "Completed translations only",
+      "scopeIncomplete": "Incomplete translations only",
+      "scopeCustom": "Custom filter",
+      "exportLanguages": "Export Languages",
+      "noLanguageSelected": "No languages selected will export all languages",
+      "languagesSelected": "{count} languages selected",
+      "advancedOptions": "Advanced Options",
+      "includeEmpty": "Include empty translations",
+      "includeEmptyDesc": "Include items that have not been translated yet",
+      "prettify": "Prettify output",
+      "prettifyDesc": "Output formatted, readable files",
+      "metadata": "Include metadata",
+      "metadataDesc": "Include creation time, modifier, and other info",
+      "downloadButton": "Download Translation ZIP",
+      "fileNote": "Each language will be generated as a separate file and packaged as a ZIP",
+      "exportSuccess": "Export Successful",
+      "exportSuccessDesc": "Translation ZIP package has started downloading"
+    },
+    "overview": {
+      "documentCount": "Document Count",
+      "documentCountDesc": "Total number of documents in this project",
+      "supportedLanguages": "Supported Languages",
+      "translationProgress": "Translation Progress",
+      "teamMembers": "Team Members",
+      "teamMembersDesc": "Number of members participating in the project",
+      "recentActivity": "Recent Activity",
+      "recentActivityDesc": "Recent updates and activities in the project",
+      "userAddedNewToken": "User added new document",
+      "userCompletedTranslations": "User completed {count} translations",
+      "newMemberJoined": "New member joined the project",
+      "hourAgo": "{count} hour ago",
+      "dayAgo": "{count} day ago",
+      "projectInfo": "Project Information",
+      "projectInfoDesc": "Detailed project statistics and tags",
+      "lastUpdated": "Last Updated",
+      "today": "Today",
+      "tagCount": "Tag Count",
+      "commonTags": "Common Tags",
+      "noDescription": "No description"
+    },
+    "settings": {
+      "description": "Manage configurations and options for \"{projectName}\" project",
+      "saveSuccess": "Settings saved",
+      "saveError": "Failed to save, please try again",
+      "saveButton": "Save Settings",
+      "tabs": {
+        "basic": "Basic Info",
+        "languages": "Languages",
+        "advanced": "Advanced",
+        "danger": "Danger Zone"
+      },
+      "basic": {
+        "title": "Basic Information",
+        "description": "Modify basic information and configuration of the project",
+        "name": "Project Name",
+        "namePlaceholder": "Enter project name",
+        "descriptionPlaceholder": "Enter detailed project description or notes",
+        "url": "Project URL",
+        "urlPlaceholder": "Project related link or repository address",
+        "urlHelpText": "You can fill in the project's code repository address or related documentation links"
+      },
+      "languages": {
+        "title": "Language Management",
+        "description": "Manage supported languages for the project",
+        "current": "Current Languages",
+        "noLanguages": "No languages added, please add at least one language",
+        "add": "Add Language",
+        "addPlaceholder": "Enter language code, e.g. en-US",
+        "common": "Common Languages",
+        "saveSuccess": "Language settings saved",
+        "saveButton": "Save Language Settings"
+      },
+      "advanced": {
+        "title": "Advanced Settings",
+        "description": "Configure advanced features and options for the project",
+        "saveSuccess": "Advanced settings saved",
+        "saveButton": "Save Advanced Settings",
+        "autoTranslate": {
+          "title": "Auto Translate",
+          "description": "Automatically translate new content to other languages when added"
+        },
+        "versioning": {
+          "title": "Version Control",
+          "description": "Track content revision history and allow rollbacks"
+        },
+        "comments": {
+          "title": "Enable Comments",
+          "description": "Allow team members to comment and discuss translation content"
+        },
+        "public": {
+          "title": "Public Project",
+          "description": "Allow unauthenticated users to access translation data (read-only)"
+        }
+      },
+      "danger": {
+        "title": "Danger Zone",
+        "description": "Actions in this area cannot be undone, please proceed with caution",
+        "warning": "Deleting the project will permanently remove all related data, including all translations, history, and settings.",
+        "deleteProject": "Delete Project",
+        "deleteDescription": "This action will permanently delete the \"{projectName}\" project and all its data, and cannot be recovered.",
+        "deleteButton": "Delete Project",
+        "confirmDeleteTitle": "Are you sure you want to delete this project?",
+        "confirmDeleteDescription": "This action will permanently delete the \"{projectName}\" project and all its data, including all translations, history, and project settings. This action cannot be undone.",
+        "confirmDeleteButton": "Confirm Deletion"
+      }
+    }
+  },
+  "user": {
+    "loadingProfile": "Loading",
+    "userNotExist": "User Does Not Exist",
+    "userNotFound": "Cannot find user with ID: {userId}",
+    "backToHome": "Back to Home",
+    "editProfile": "Edit Profile",
+    "joinedAt": "Joined on {date}",
+    "teamsCount": "{count} teams",
+    "projectsCount": "{count} projects",
+    "connectGitHub": "Connect GitHub",
+    "tabs": {
+      "overview": "Overview",
+      "teams": "Teams",
+      "projects": "Projects",
+      "settings": "Settings"
+    },
+    "recentActivity": "Recent Activity",
+    "projectCreated": "Created new project",
+    "teamJoined": "Joined team",
+    "translationCompleted": "Completed translation task",
+    "projectName": "Project name: {name}",
+    "teamName": "Team name: {name}",
+    "translationCount": "Completed {count} translations in project {project}",
+    "noActivities": "No activity records",
+    "statistics": "Statistics",
+    "teamsJoined": "Teams joined",
+    "projectsJoined": "Projects joined",
+    "translationsCompleted": "Translations completed",
+    "activeDays": "Active days",
+    "contactInfo": "Contact Information",
+    "addSocialAccount": "Add Social Account",
+    "createdOn": "Created on {date}",
+    "members": "{count} members",
+    "noTeams": "No Teams",
+    "noTeamsJoined": "You haven't joined any teams yet",
+    "userHasNoTeams": "This user hasn't joined any teams yet",
+    "createNewTeam": "Create New Team",
+    "createTeamForProject": "Create a team for a new project",
+    "languages": "{count} languages",
+    "noProjectDescription": "No project description",
+    "noProjects": "No Projects",
+    "noProjectsJoined": "You haven't joined any projects yet",
+    "userHasNoProjects": "This user hasn't joined any projects yet",
+    "createNewProject": "Create New Project",
+    "startNewTranslationProject": "Start a new translation project",
+    "settings": {
+      "profile": "Profile",
+      "profileDesc": "Manage your personal information and public display",
+      "security": "Account Security",
+      "securityDesc": "Change password and security options",
+      "integrations": "Integrations",
+      "integrationsDesc": "Connect GitHub and other third-party services",
+      "notifications": "Notification Settings",
+      "notificationsDesc": "Manage system notifications and email alerts"
+    }
+  }
+}

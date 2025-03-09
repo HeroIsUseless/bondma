@@ -1,0 +1,103 @@
+{
+  "welcome": {
+    "tagline": "本地化管理解决方案",
+    "title": "使用 <span>Bondma</span> 简化翻译流程",
+    "description": "专为开发团队设计的本地化管理平台，帮助您高效管理多语言项目，无缝协作翻译。",
+    "getStarted": "开始使用",
+    "learnMore": "了解更多"
+  },
+  "features": {
+    "title": "强大特性",
+    "description": "Bondma 提供专业的本地化工具，帮助团队更高效地管理多语言内容",
+    "items": [
+      {
+        "title": "多语言支持",
+        "description": "支持多种语言，满足全球化需求，实现无缝本地化体验。"
+      },
+      {
+        "title": "协作翻译",
+        "description": "团队成员可同时参与翻译工作，提高效率，保证质量。"
+      },
+      {
+        "title": "项目管理",
+        "description": "在一个平台上管理多个项目，清晰组织不同项目的翻译资源。"
+      },
+      {
+        "title": "开发友好",
+        "description": "支持多种格式导入导出，与现代开发工具链无缝集成。"
+      },
+      {
+        "title": "安全可靠",
+        "description": "精细的权限控制，确保翻译内容的安全和数据隐私。"
+      },
+      {
+        "title": "开源项目",
+        "description": "完全开源，社区驱动，持续改进优化功能和体验。"
+      }
+    ]
+  },
+  "workflow": {
+    "title": "简化的工作流程",
+    "description": "从导入项目到导出翻译，Bondma 提供端到端的本地化管理解决方案",
+    "tabs": {
+      "import": "导入项目",
+      "translate": "翻译管理",
+      "export": "导出与集成"
+    },
+    "steps": {
+      "import": {
+        "title": "导入项目",
+        "description": "简单几步，高效完成导入项目流程",
+        "steps": [
+          "创建团队和项目",
+          "导入现有翻译文件",
+          "自动识别语言和结构"
+        ]
+      },
+      "translate": {
+        "title": "翻译管理",
+        "description": "简单几步，高效完成翻译管理流程",
+        "steps": [
+          "邀请团队成员",
+          "分配翻译任务",
+          "实时协作编辑",
+          "审核翻译质量"
+        ]
+      },
+      "export": {
+        "title": "导出与集成",
+        "description": "简单几步，高效完成导出与集成流程",
+        "steps": [
+          "导出多种格式文件",
+          "与CI/CD流程集成",
+          "自动化部署更新"
+        ]
+      }
+    },
+    "viewDocs": "查看详细文档"
+  },
+  "cases": {
+    "title": "用户案例",
+    "description": "看看其他团队如何使用 Bondma 提升本地化效率",
+    "case1": {
+      "title": "TechGlobal 科技公司",
+      "subtitle": "全球化应用的本地化挑战",
+      "quote": "\"使用 Bondma 后，我们将翻译效率提高了60%，现在可以同时支持20种语言而不增加团队规模。\"",
+      "readMore": "阅读完整案例"
+    },
+    "case2": {
+      "title": "CreativeStudio 创意工作室",
+      "subtitle": "多平台内容的一致性管理",
+      "quote": "\"Bondma 帮助我们在多个平台上保持品牌信息的一致性，翻译错误减少了90%。\"",
+      "readMore": "阅读完整案例"
+    }
+  },
+  "cta": {
+    "title": "准备好开始使用了吗？",
+    "description": "立即加入 Bondma，体验高效的本地化管理，让您的产品说出全世界的语言。",
+    "register": "免费注册",
+    "demo": "预约演示",
+    "note": "免费版本包含基本功能，可随时升级"
+  },
+  "language": "语言"
+}

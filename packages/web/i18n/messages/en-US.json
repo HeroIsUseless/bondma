@@ -1,0 +1,103 @@
+{
+  "welcome": {
+    "tagline": "Localization Management Solution",
+    "title": "Simplify Translation Process with <span>Bondma</span>",
+    "description": "A localization management platform designed for development teams, helping you efficiently manage multilingual projects and collaborate seamlessly.",
+    "getStarted": "Get Started",
+    "learnMore": "Learn More"
+  },
+  "features": {
+    "title": "Powerful Features",
+    "description": "Bondma provides professional localization tools to help teams manage multilingual content more efficiently",
+    "items": [
+      {
+        "title": "Multilingual Support",
+        "description": "Support for multiple languages, meeting global needs with seamless localization experience."
+      },
+      {
+        "title": "Collaborative Translation",
+        "description": "Team members can participate in translation work simultaneously, improving efficiency and ensuring quality."
+      },
+      {
+        "title": "Project Management",
+        "description": "Manage multiple projects on one platform, clearly organizing translation resources for different projects."
+      },
+      {
+        "title": "Developer Friendly",
+        "description": "Support for import/export in multiple formats, seamless integration with modern development toolchains."
+      },
+      {
+        "title": "Secure & Reliable",
+        "description": "Fine-grained permission control ensures the security of translation content and data privacy."
+      },
+      {
+        "title": "Open Source Project",
+        "description": "Completely open source, community-driven, continuously improving features and experience."
+      }
+    ]
+  },
+  "workflow": {
+    "title": "Simplified Workflow",
+    "description": "From project import to translation export, Bondma provides end-to-end localization management solutions",
+    "tabs": {
+      "import": "Import Project",
+      "translate": "Translation Management",
+      "export": "Export & Integration"
+    },
+    "steps": {
+      "import": {
+        "title": "Import Project",
+        "description": "Complete the import project process efficiently in a few simple steps",
+        "steps": [
+          "Create team and project",
+          "Import existing translation files",
+          "Automatic language and structure recognition"
+        ]
+      },
+      "translate": {
+        "title": "Translation Management",
+        "description": "Complete the translation management process efficiently in a few simple steps",
+        "steps": [
+          "Invite team members",
+          "Assign translation tasks",
+          "Real-time collaborative editing",
+          "Review translation quality"
+        ]
+      },
+      "export": {
+        "title": "Export & Integration",
+        "description": "Complete the export and integration process efficiently in a few simple steps",
+        "steps": [
+          "Export files in multiple formats",
+          "Integrate with CI/CD processes",
+          "Automated deployment updates"
+        ]
+      }
+    },
+    "viewDocs": "View Detailed Documentation"
+  },
+  "cases": {
+    "title": "User Cases",
+    "description": "See how other teams use Bondma to improve localization efficiency",
+    "case1": {
+      "title": "TechGlobal",
+      "subtitle": "Localization challenges for global applications",
+      "quote": "\"After using Bondma, we increased our translation efficiency by 60% and now support 20 languages without expanding our team.\"",
+      "readMore": "Read Full Case Study"
+    },
+    "case2": {
+      "title": "CreativeStudio",
+      "subtitle": "Consistent management of multi-platform content",
+      "quote": "\"Bondma helped us maintain brand messaging consistency across multiple platforms, reducing translation errors by 90%.\"",
+      "readMore": "Read Full Case Study"
+    }
+  },
+  "cta": {
+    "title": "Ready to get started?",
+    "description": "Join Bondma now and experience efficient localization management, letting your product speak every language in the world.",
+    "register": "Register for Free",
+    "demo": "Schedule a Demo",
+    "note": "Free version includes basic features, upgradeable anytime"
+  },
+  "language": "Language"
+}
