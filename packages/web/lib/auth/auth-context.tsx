@@ -41,7 +41,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const response = await apiLogin(email, password);
       setUser(response.user);
       localStorage.setItem('authToken', response.token);
-      console.log('zws login response localStorage', localStorage.getItem('authToken'));
     } catch (error) {
       setError(error instanceof Error ? error.message : 'login failed');
       throw error;

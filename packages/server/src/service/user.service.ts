@@ -96,12 +96,10 @@ export class UserService {
                 where: { name: nameOrEmail },
             });
         }
-        Logger.log('zws user1', nameOrEmail, password, user);
         // If user is found and password matches
         if (user) {
             // Verify password
             const isPasswordValid = await bcrypt.compare(password, user.password);
-            Logger.log('zws user2', nameOrEmail, password, user, isPasswordValid);
             if (isPasswordValid) {
                 return user;
             }

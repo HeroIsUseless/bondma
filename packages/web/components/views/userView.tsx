@@ -44,7 +44,6 @@ export default function UserView() {
   const projects = useAtomValue(projectsAtom);
   const t = useTranslations();
   
-  console.log('zws 5246', getUserById)
   // Get user data
   useEffect(() => {
     const fetchUserData = async () => {
@@ -53,7 +52,6 @@ export default function UserView() {
       try {
         // Call API to get user information
         const userData = await getUserById(userId as string);
-        console.log('zws 0983', userData)
         setUser(userData);
       } catch (error) {
         console.error("Failed to fetch user data:", error);

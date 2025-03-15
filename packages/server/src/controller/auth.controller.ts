@@ -30,7 +30,7 @@ export class AuthController {
       }
 
       // Password encryption
-      const hashedPassword = await bcrypt.hash(data.password, process.env.SALT_ROUNDS ?? 10);
+      const hashedPassword = await bcrypt.hash(data.password, 10);
 
       // Create new user
       const newUser = await this.userService.createUser({
@@ -47,6 +47,7 @@ export class AuthController {
         user: result,
       };
     } catch (error) {
+      Logger.log('zws register error', error);
       if (error instanceof HttpException) {
         throw error;
       }
@@ -65,7 +66,6 @@ export class AuthController {
 
       // Verify password
       const isPasswordValid = await bcrypt.compare(data.password, user.password);
-      Logger.log('zws login', user, data, isPasswordValid);
       if (!isPasswordValid) {
         throw new UnauthorizedException('Email or password incorrect');
       }

@@ -15,10 +15,9 @@ export function ProjectView() {
     
     return (
         <Tabs defaultValue="overview" className="w-full max-w-4xl mx-auto p-4 bg-white rounded-lg mt-6">
-            <TabsList className="mb-4 grid grid-cols-6 gap-2">
+            <TabsList className="mb-4 grid grid-cols-5 gap-2">
                 <TabsTrigger value="overview" className="px-2 py-1 text-gray-700 hover:text-blue-500 text-sm">{t('project.tabs.overview')}</TabsTrigger>
                 <TabsTrigger value="tokens" className="px-2 py-1 text-gray-700 hover:text-blue-500 text-sm">{t('project.tabs.tokens')}</TabsTrigger>
-                <TabsTrigger value="task" className="px-2 py-1 text-gray-700 hover:text-blue-500 text-sm">{t('project.tabs.task')}</TabsTrigger>
                 <TabsTrigger value="import" className="px-2 py-1 text-gray-700 hover:text-blue-500 text-sm">{t('project.tabs.import')}</TabsTrigger>
                 <TabsTrigger value="export" className="px-2 py-1 text-gray-700 hover:text-blue-500 text-sm">{t('project.tabs.export')}</TabsTrigger>
                 <TabsTrigger value="setting" className="px-2 py-1 text-gray-700 hover:text-blue-500 text-sm">{t('project.tabs.setting')}</TabsTrigger>
@@ -32,9 +31,6 @@ export function ProjectView() {
                 <ProjectTokensTab project={nowProject} />
             </TabsContent>
             
-            <TabsContent value="task">
-            </TabsContent>
-
             <TabsContent value="import">
                 <ProjectImportTab project={nowProject} />
             </TabsContent>

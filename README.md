@@ -4,7 +4,9 @@
 
 Bondma 是一个现代化的多语言翻译管理平台，旨在简化应用程序和网站的国际化(i18n)流程。它提供了直观的用户界面，帮助团队高效管理、翻译和同步多语言内容。
 
-![Bondma Logo](./doc/readme/dollar.jpg)
+![Bondma Main](./doc/readme/main.png)
+
+![Bondma Page](./doc/readme/index.png)
 
 ## 主要特性
 
@@ -32,12 +34,12 @@ mongod --config /Users/heroisuseless/Documents/GitHub/bondma/conf/mongo.conf
 
 ```
 cd packages/server
-npm run start
+pnpm run start
 ```
 
 ```
 cd packages/web
-npm run dev
+pnpm run dev
 ```
 
 ### 前置条件
@@ -45,3 +47,13 @@ npm run dev
 - Node.js 18+
 - PostgreSQL 14+
 - Docker (可选)
+
+### 联系方式
+
+![qq](./doc/readme/qq.png)
+
+### 打赏
+
+![prize](./doc/readme/prize.jpg)
+
+![Bondma Logo](./doc/readme/dollar.jpg)
