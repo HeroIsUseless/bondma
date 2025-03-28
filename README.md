@@ -5,6 +5,12 @@
 
 Bondma is a modern multilingual translation management platform designed to simplify the internationalization (i18n) process for applications and websites. It provides an intuitive user interface to help teams efficiently manage, translate, and synchronize multilingual content.
 
+How to use: This project has separated frontend and backend and is completely open-source, built with Nextjs + Nestjs. After deployment, you can visually manage internationalization entries on this translation platform, and it features open APIs that make it convenient to retrieve all entries via scripts. It's suitable for collaborative work between product translation and development during project development, improving communication efficiency.
+
+This platform implements "bootstrapping", meaning it uses itself to manage all internationalization entries within the platform project.
+
+The naming inspiration for this platform comes from the character Tang Shiye (also known as Bond Ma) from the movie "Let the Bullets Fly", who was skilled in English and translation.
+
 ![Bondma Main](./doc/readme/main.png)
 
 ![Bondma Page](./doc/readme/index.png)
@@ -46,7 +52,7 @@ pnpm run dev
 ### Prerequisites
 
 - Node.js 18+
-- MongoDB 14+
+- MongoDB
 - Docker (optional)
 
 ### Contact
