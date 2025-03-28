@@ -16,26 +16,40 @@ export class ProjectService {
     teamId: string;
     url: string;
     description?: string;
-    languages?: string[];
   }) {
-    return this.prisma.project.create({
+    // Create project first
+    const project = await this.prisma.project.create({
       data: {
-        ...data,
-        languages: data.languages || [],  // Use provided languages or default to empty array
+        name: data.name,
+        url: data.url,
+        description: data.description,
+        teamId: data.teamId,
       },
     });
-  }
 
-  async findAllProjects() {
-    return this.prisma.project.findMany();
+    // Create default production environment
+    await this.prisma.environment.create({
+      data: {
+        name: 'Production',
+        type: 'production',
+        languages: [],
+        projectId: project.id,
+      },
+    });
+
+    return project;
   }
 
   async findProjectById(id: string) {
     return this.prisma.project.findUnique({
       where: { id },
       include: {
-        tokens: true, // Include all tokens
-      }
+        environments: {
+          include: {
+            tokens: true,
+          },
+        },
+      },
     });
   }
 
@@ -48,7 +62,7 @@ export class ProjectService {
   async updateProject(id: string, data: { 
     name?: string;
     description?: string;
-    languages?: string[];
+    url?: string;
   }) {
     return this.prisma.project.update({
       where: { id },
@@ -57,8 +71,20 @@ export class ProjectService {
   }
 
   async deleteProject(id: string) {
-    // First delete all tokens associated with this project
-    await this.prisma.token.deleteMany({
+    // First get all environments for this project
+    const environments = await this.prisma.environment.findMany({
+      where: { projectId: id }
+    });
+    
+    // Delete all tokens for each environment
+    for (const env of environments) {
+      await this.prisma.token.deleteMany({
+        where: { environmentId: env.id }
+      });
+    }
+    
+    // Delete all environments
+    await this.prisma.environment.deleteMany({
       where: { projectId: id }
     });
     
@@ -68,33 +94,41 @@ export class ProjectService {
     });
   }
 
-  async addLanguage(id: string, language: string) {
-    const project = await this.prisma.project.findUnique({
-      where: { id }
+  async addLanguage(environmentId: string, language: string) {
+    const environment = await this.prisma.environment.findUnique({
+      where: { id: environmentId }
     });
     
+    if (!environment) {
+      throw new NotFoundException('Environment not found');
+    }
+    
     // Ensure language array exists and avoid duplicate additions
-    const languages = project?.languages || [];
+    const languages = environment.languages || [];
     if (!languages.includes(language)) {
-      return this.prisma.project.update({
-        where: { id },
+      return this.prisma.environment.update({
+        where: { id: environmentId },
         data: {
           languages: [...languages, language]
         }
       });
     }
     
-    return project;
+    return environment;
   }
 
-  async removeLanguage(id: string, language: string) {
-    const project = await this.prisma.project.findUnique({
-      where: { id }
+  async removeLanguage(environmentId: string, language: string) {
+    const environment = await this.prisma.environment.findUnique({
+      where: { id: environmentId }
     });
     
-    const languages = project?.languages || [];
-    return this.prisma.project.update({
-      where: { id },
+    if (!environment) {
+      throw new NotFoundException('Environment not found');
+    }
+    
+    const languages = environment.languages || [];
+    return this.prisma.environment.update({
+      where: { id: environmentId },
       data: {
         languages: languages.filter(lang => lang !== language)
       }
@@ -119,41 +153,58 @@ export class ProjectService {
 
   // ============= Token related methods =============
 
-  // Get all tokens in a project
-  async getProjectTokens(projectId: string) {
+  // Get all tokens in a specific environment
+  async getProjectTokens(environmentId: string) {
+    const environment = await this.prisma.environment.findUnique({
+      where: { id: environmentId }
+    });
+    
+    if (!environment) {
+      throw new NotFoundException('Environment not found');
+    }
+    
     return this.prisma.token.findMany({
-      where: { projectId }
+      where: { environmentId }
     });
   }
 
   // Create new token
   async createToken(data: {
-    projectId: string;
+    environmentId: string;
     key: string;
     tags?: string[];
     comment?: string;
-    translations?: Record<string, string>; // Changed to use translation object directly
+    translations?: Record<string, string>;
   }) {
-    // Check if key already exists
+    // Check if environment exists
+    const environment = await this.prisma.environment.findUnique({
+      where: { id: data.environmentId }
+    });
+    
+    if (!environment) {
+      throw new NotFoundException('Environment not found');
+    }
+    
+    // Check if key already exists in this environment
     const existingToken = await this.prisma.token.findFirst({
       where: {
-        projectId: data.projectId,
+        environmentId: data.environmentId,
         key: data.key
       }
     });
 
     if (existingToken) {
-      throw new BadRequestException(`Token key '${data.key}' already exists`);
+      throw new BadRequestException(`Token key '${data.key}' already exists in this environment`);
     }
 
     // Create token and store translations directly
     return this.prisma.token.create({
       data: {
-        projectId: data.projectId,
+        environmentId: data.environmentId,
         key: data.key,
         tags: data.tags || [],
         comment: data.comment || '',
-        translations: data.translations || {}, // Store translation object directly
+        translations: data.translations || {},
       }
     });
   }
@@ -176,7 +227,7 @@ export class ProjectService {
     key?: string;
     tags?: string[];
     comment?: string;
-    translations?: Record<string, string>; // Add translation object parameter
+    translations?: Record<string, string>;
   }) {
     // Get token to confirm it exists
     const token = await this.getTokenById(tokenId);
@@ -185,14 +236,14 @@ export class ProjectService {
     if (data.key && data.key !== token.key) {
       const existingToken = await this.prisma.token.findFirst({
         where: {
-          projectId: token.projectId,
+          environmentId: token.environmentId,
           key: data.key,
           NOT: { id: tokenId }
         }
       });
 
       if (existingToken) {
-        throw new BadRequestException(`Token key '${data.key}' already exists`);
+        throw new BadRequestException(`Token key '${data.key}' already exists in this environment`);
       }
     }
 
@@ -233,38 +284,39 @@ export class ProjectService {
   }
 
   // Export project content
-  async exportProjectTokens(projectId: string, options: {
+  async exportProjectTokens(environmentId: string, options: {
     format: 'json' | 'csv' | 'xml' | 'yaml';
     scope?: 'all' | 'completed' | 'incomplete' | 'custom';
     languages?: string[];
     showEmptyTranslations?: boolean;
     prettify?: boolean;
     includeMetadata?: boolean;
-    asZip?: boolean; // Add option: whether to export as ZIP package
+    asZip?: boolean;
   }) {
-    // Get project information, mainly for supported language list
-    const project = await this.prisma.project.findUnique({
-      where: { id: projectId }
+    // Get environment information for supported language list
+    const environment = await this.prisma.environment.findUnique({
+      where: { id: environmentId },
+      include: { project: true }
     });
     
-    if (!project) {
-      throw new NotFoundException('Project does not exist');
+    if (!environment) {
+      throw new NotFoundException('Environment does not exist');
     }
 
-    // Get all tokens
+    // Get all tokens for this environment
     let tokens = await this.prisma.token.findMany({
-      where: { projectId }
+      where: { environmentId }
     });
 
     // Filter tokens based on scope
     if (options.scope) {
-      tokens = this.filterTokensByScope(tokens, options.scope, project.languages);
+      tokens = this.filterTokensByScope(tokens, options.scope, environment.languages);
     }
 
     // If languages are specified, only export translations for these languages
     const targetLanguages = (options.languages && options.languages.length > 0) 
-      ? options.languages.filter(lang => project.languages.includes(lang))
-      : project.languages;
+      ? options.languages.filter(lang => environment.languages.includes(lang))
+      : environment.languages;
 
     // Filter based on showEmptyTranslations option
     if (options.showEmptyTranslations === false) {
@@ -303,36 +355,36 @@ export class ProjectService {
     // Remove unwanted metadata
     if (!options.includeMetadata) {
       // @ts-ignore
-      tokens = tokens.map(({ id, projectId, key, translations }) => ({
-        id, projectId, key, translations
+      tokens = tokens.map(({ id, environmentId, key, translations }) => ({
+        id, environmentId, key, translations
       }));
     }
 
     // Default export as ZIP (one file per language)
-    return await createZipWithLanguageFiles(tokens, project, targetLanguages, options.format, {
+    return await createZipWithLanguageFiles(tokens, environment.project, targetLanguages, options.format, {
       prettify: options.prettify
     });
   }
 
   // Import project content
-  async importProjectTokens(projectId: string, data: {
+  async importProjectTokens(environmentId: string, data: {
     language: string;      // Language to import
     content: string;       // File content
     format: 'json' | 'csv' | 'xml' | 'yaml'; // Import format
     mode: 'append' | 'replace'; // Import mode
   }) {
-    // Get project information
-    const project = await this.prisma.project.findUnique({
-      where: { id: projectId }
+    // Get environment information
+    const environment = await this.prisma.environment.findUnique({
+      where: { id: environmentId }
     });
     
-    if (!project) {
-      throw new NotFoundException('Project does not exist');
+    if (!environment) {
+      throw new NotFoundException('Environment does not exist');
     }
 
-    // Verify if language is in project's supported language list
-    if (!project.languages.includes(data.language)) {
-      throw new BadRequestException(`Project does not support "${data.language}" language`);
+    // Verify if language is in environment's supported language list
+    if (!environment.languages.includes(data.language)) {
+      throw new BadRequestException(`Environment does not support "${data.language}" language`);
     }
 
     // Parse imported data
@@ -342,9 +394,9 @@ export class ProjectService {
       throw new BadRequestException('Imported file does not contain valid data or has incorrect format');
     }
 
-    // Get all current tokens for the project
+    // Get all current tokens for the environment
     const existingTokens = await this.prisma.token.findMany({
-      where: { projectId }
+      where: { environmentId }
     });
 
     // Statistics
@@ -393,7 +445,7 @@ export class ProjectService {
           
           await this.prisma.token.create({
             data: {
-              projectId,
+              environmentId,
               key,
               tags: [],
               comment: '',
@@ -434,7 +486,7 @@ export class ProjectService {
           
           await this.prisma.token.create({
             data: {
-              projectId,
+              environmentId,
               key,
               tags: [],
               comment: '',
@@ -454,19 +506,19 @@ export class ProjectService {
   }
 
   // Filter tokens by scope
-  private filterTokensByScope(tokens: any[], scope: string, projectLanguages: string[]) {
+  private filterTokensByScope(tokens: any[], scope: string, environmentLanguages: string[]) {
     switch (scope) {
       case 'all':
         return tokens;
       case 'completed':
         return tokens.filter(token => {
           const translations = token.translations as Record<string, string> || {};
-          return projectLanguages.every(lang => translations[lang] && translations[lang].trim() !== '');
+          return environmentLanguages.every(lang => translations[lang] && translations[lang].trim() !== '');
         });
       case 'incomplete':
         return tokens.filter(token => {
           const translations = token.translations as Record<string, string> || {};
-          return projectLanguages.some(lang => !translations[lang] || translations[lang].trim() === '');
+          return environmentLanguages.some(lang => !translations[lang] || translations[lang].trim() === '');
         });
       case 'custom':
         // Custom filter can be extended as needed
@@ -476,4 +528,61 @@ export class ProjectService {
     }
   }
 
+  async createEnvironment(projectId: string, data: { 
+    name: string;
+    type: string;
+    description?: string;
+    defaultLang?: string;
+    languages?: string[];
+  }) {
+    const project = await this.prisma.project.findUnique({ where: { id: projectId } });
+    if (!project) {
+      throw new NotFoundException('Project does not exist');
+    }
+
+    return this.prisma.environment.create({
+      data: {
+        name: data.name,
+        type: data.type,
+        defaultLang: data.defaultLang,
+        languages: data.languages || [],
+        projectId,
+      },
+    });
+  }
+
+  async deleteEnvironment(projectId: string, environmentId: string) {
+    const environment = await this.prisma.environment.findUnique({ where: { id: environmentId } });
+    if (!environment || environment.projectId !== projectId) {
+      throw new NotFoundException('Environment does not exist or does not belong to the project');
+    }
+
+    // First delete all tokens associated with this environment
+    await this.prisma.token.deleteMany({
+      where: { environmentId: environmentId }
+    });
+
+    return this.prisma.environment.delete({ where: { id: environmentId } });
+  }
+
+  async updateEnvironment(projectId: string, environmentId: string, data: { 
+    name?: string;
+    type?: string;
+    defaultLang?: string;
+    languages?: string[];
+  }) {
+    const environment = await this.prisma.environment.findUnique({ where: { id: environmentId } });
+    if (!environment || environment.projectId !== projectId) {
+      throw new NotFoundException('Environment does not exist or does not belong to the project');
+    }
+
+    return this.prisma.environment.update({
+      where: { id: environmentId },
+      data,
+    });
+  }
+
+  async listEnvironments(projectId: string) {
+    return this.prisma.environment.findMany({ where: { projectId } });
+  }
 }

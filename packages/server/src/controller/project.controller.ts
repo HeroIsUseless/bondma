@@ -31,23 +31,23 @@ export class ProjectController {
     return this.projectService.findAllProjects();
   }
 
-  @Get('find/:id')
-  async findProjectById(@Param('id') id: string) {
-    return this.projectService.findProjectById(id);
+  @Get('find/:projectId')
+  async findProjectById(@Param('projectId') projectId: string) {
+    return this.projectService.findProjectById(projectId);
   }
 
-  @Put('update/:id')
-  async updateProject(@Param('id') id: string, @Body() data: { 
+  @Put('update/:projectId')
+  async updateProject(@Param('projectId') projectId: string, @Body() data: { 
     name?: string;
     description?: string;
     languages?: string[];
   }) {
-    return this.projectService.updateProject(id, data);
+    return this.projectService.updateProject(projectId, data);
   }
 
-  @Delete('delete/:id')
-  async deleteProject(@Param('id') id: string) {
-    return this.projectService.deleteProject(id);
+  @Delete('delete/:projectId')
+  async deleteProject(@Param('projectId') projectId: string) {
+    return this.projectService.deleteProject(projectId);
   }
 
   @Get('team/:teamId')
@@ -55,21 +55,21 @@ export class ProjectController {
     return this.projectService.findProjectsByTeamId(teamId);
   }
 
-  @Post('language/:id')
-  async addLanguage(@Param('id') id: string, @Body() data: { language: string }) {
-    return this.projectService.addLanguage(id, data.language);
+  @Post('language/:environmentId')
+  async addLanguage(@Param('environmentId') environmentId: string, @Body() data: { language: string }) {
+    return this.projectService.addLanguage(environmentId, data.language);
   }
 
-  @Delete('language/:id/:language')
-  async removeLanguage(@Param('id') id: string, @Param('language') language: string) {
-    return this.projectService.removeLanguage(id, language);
+  @Delete('language/:environmentId/:language')
+  async removeLanguage(@Param('environmentId') environmentId: string, @Param('language') language: string) {
+    return this.projectService.removeLanguage(environmentId, language);
   }
 
   // Check if user has permission to read/write project
-  @Get('check/:id')
+  @Get('check/:projectId')
   @UseGuards(AuthGuard)
   async checkProjectPermission(
-    @Param('id') projectId: string,
+    @Param('projectId') projectId: string,
     @CurrentUser() user: UserPayload
   ) {
     return await this.projectService.checkUserProjectPermission(projectId, user.userId);
@@ -78,19 +78,28 @@ export class ProjectController {
   // ============= Token related APIs =============
 
   // Get all tokens of a project
-  @Get('tokens/:projectId')
+  @Get('tokens/:environmentId')
   @UseGuards(AuthGuard)
   async getProjectTokens(
-    @Param('projectId') projectId: string,
+    @Param('environmentId') environmentId: string,
     @CurrentUser() user: UserPayload
   ) {
     // Verify permission
-    const hasPermission = await this.projectService.checkUserProjectPermission(projectId, user.userId);
+    const environment = await this.projectService.prisma.environment.findUnique({
+      where: { id: environmentId },
+      select: { projectId: true }
+    });
+
+    if (!environment) {
+      throw new NotFoundException('Environment not found');
+    }
+
+    const hasPermission = await this.projectService.checkUserProjectPermission(environment.projectId, user.userId);
     if (!hasPermission) {
       throw new ForbiddenException('You do not have permission to access this project');
     }
     
-    return this.projectService.getProjectTokens(projectId);
+    return this.projectService.getProjectTokens(environmentId);
   }
 
   // Create token
@@ -98,16 +107,26 @@ export class ProjectController {
   @UseGuards(AuthGuard)
   async createToken(
     @Body() data: {
-      projectId: string;
+      environmentId: string;
       key: string;
       tags?: string[];
       comment?: string;
-      translations?: Record<string, string>; // Using translation object directly instead of array
+      translations?: Record<string, string>;
     },
     @CurrentUser() user: UserPayload
   ) {
+    // Get environment to find its project
+    const environment = await this.projectService.prisma.environment.findUnique({
+      where: { id: data.environmentId },
+      select: { projectId: true }
+    });
+
+    if (!environment) {
+      throw new NotFoundException('Environment not found');
+    }
+
     // Verify permission
-    const hasPermission = await this.projectService.checkUserProjectPermission(data.projectId, user.userId);
+    const hasPermission = await this.projectService.checkUserProjectPermission(environment.projectId, user.userId);
     if (!hasPermission) {
       throw new ForbiddenException('You do not have permission to create content in this project');
     }
@@ -184,11 +203,11 @@ export class ProjectController {
   }
 
   // Export project content
-  @Post('export/:projectId')
+  @Post('export/:environmentId')
   @UseGuards(AuthGuard)
   @Header('Content-Type', 'application/zip')
   async exportProject(
-    @Param('projectId') projectId: string,
+    @Param('environmentId') environmentId: string,
     @Body() data: {
       format: 'json' | 'csv' | 'xml' | 'yaml'; // Export format
       scope?: 'all' | 'completed' | 'incomplete' | 'custom'; // Export scope
@@ -200,18 +219,29 @@ export class ProjectController {
     @CurrentUser() user: UserPayload,
     @Res() res: Response
   ) {
+    // Get environment to find its project
+    const environment = await this.projectService.prisma.environment.findUnique({
+      where: { id: environmentId },
+      select: { projectId: true }
+    });
+
+    if (!environment) {
+      throw new NotFoundException('Environment not found');
+    }
+
     // Verify permission
-    const hasPermission = await this.projectService.checkUserProjectPermission(projectId, user.userId);
+    const hasPermission = await this.projectService.checkUserProjectPermission(environment.projectId, user.userId);
     if (!hasPermission) {
       throw new ForbiddenException('You do not have permission to export this project');
     }
     
     try {
       // Call service to export data as ZIP package
-      const zipBuffer = await this.projectService.exportProjectTokens(projectId, data);
+      const zipBuffer = await this.projectService.exportProjectTokens(environmentId, data);
       
       // Set response headers
-      res.setHeader('Content-Disposition', `attachment; filename="translations-${projectId}.zip"`);
+      const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+      res.setHeader('Content-Disposition', `attachment; filename="translations-${environmentId}-${timestamp}.zip"`);
       res.setHeader('Content-Type', 'application/zip');
       
       // Send ZIP file
@@ -223,10 +253,10 @@ export class ProjectController {
   }
 
   // Directly download project content via URL (supports direct download in browser)
-  @Get('download/:projectId')
+  @Get('download/:environmentId')
   @Header('Content-Type', 'application/zip')
   async downloadProject(
-    @Param('projectId') projectId: string,
+    @Param('environmentId') environmentId: string,
     @Query('format') format: 'json' | 'csv' | 'xml' | 'yaml' = 'json', // Default to json
     @Query('scope') scope: 'all' | 'completed' | 'incomplete' | 'custom' = 'all',
     @Query('languages') languages: string, // Comma-separated language list, e.g. 'zh,en,ja'
@@ -239,6 +269,16 @@ export class ProjectController {
     @Res() res: Response
   ) {
     try {
+      // Get environment to find its project
+      const environment = await this.projectService.prisma.environment.findUnique({
+        where: { id: environmentId },
+        select: { projectId: true }
+      });
+
+      if (!environment) {
+        throw new NotFoundException('Environment not found');
+      }
+      
       // First try to authenticate user
       let userId: string;
       
@@ -262,7 +302,7 @@ export class ProjectController {
       }
       
       // Verify project permission
-      const hasPermission = await this.projectService.checkUserProjectPermission(projectId, userId);
+      const hasPermission = await this.projectService.checkUserProjectPermission(environment.projectId, userId);
       if (!hasPermission) {
         throw new ForbiddenException('You do not have permission to download this project');
       }
@@ -278,11 +318,11 @@ export class ProjectController {
       };
       
       // Call service to export data as ZIP package
-      const zipBuffer = await this.projectService.exportProjectTokens(projectId, exportConfig);
+      const zipBuffer = await this.projectService.exportProjectTokens(environmentId, exportConfig);
       
       // Set response headers
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-      res.setHeader('Content-Disposition', `attachment; filename="translations-${projectId}-${timestamp}.zip"`);
+      res.setHeader('Content-Disposition', `attachment; filename="translations-${environmentId}-${timestamp}.zip"`);
       res.setHeader('Content-Type', 'application/zip');
       
       // Send ZIP file
@@ -294,10 +334,10 @@ export class ProjectController {
   }
 
   // Import project content
-  @Post('import/:projectId')
+  @Post('import/:environmentId')
   @UseGuards(AuthGuard)
   async importProject(
-    @Param('projectId') projectId: string,
+    @Param('environmentId') environmentId: string,
     @Body() data: {
       language: string;      // Language to import
       content: string;       // File content
@@ -306,14 +346,24 @@ export class ProjectController {
     },
     @CurrentUser() user: UserPayload
   ) {
+    // Get environment to find its project
+    const environment = await this.projectService.prisma.environment.findUnique({
+      where: { id: environmentId },
+      select: { projectId: true }
+    });
+
+    if (!environment) {
+      throw new NotFoundException('Environment not found');
+    }
+    
     // Verify permission
-    const hasPermission = await this.projectService.checkUserProjectPermission(projectId, user.userId);
+    const hasPermission = await this.projectService.checkUserProjectPermission(environment.projectId, user.userId);
     if (!hasPermission) {
       throw new ForbiddenException('You do not have permission to import content to this project');
     }
     
     try {
-      const result = await this.projectService.importProjectTokens(projectId, data);
+      const result = await this.projectService.importProjectTokens(environmentId, data);
       return {
         success: true,
         ...result
@@ -322,5 +372,49 @@ export class ProjectController {
       Logger.error(`Import failed: ${error.message}`, error.stack);
       throw new BadRequestException(`Import failed: ${error.message}`);
     }
+  }
+
+  @Post('environment/:projectId')
+  @UseGuards(AuthGuard)
+  async createEnvironment(
+    @Param('projectId') projectId: string,
+    @Body() data: { 
+      name: string;
+      type: string;
+      description?: string;
+      defaultLang?: string;
+      languages?: string[];
+    },
+    @CurrentUser() user: UserPayload
+  ) {
+    // Verify permission
+    const hasPermission = await this.projectService.checkUserProjectPermission(projectId, user.userId);
+    if (!hasPermission) {
+      throw new ForbiddenException('You do not have permission to create environments in this project');
+    }
+    
+    return this.projectService.createEnvironment(projectId, data);
+  }
+
+  @Delete('environment/:projectId/:environmentId')
+  async deleteEnvironment(
+    @Param('projectId') projectId: string,
+    @Param('environmentId') environmentId: string
+  ) {
+    return this.projectService.deleteEnvironment(projectId, environmentId);
+  }
+
+  @Put('environment/:projectId/:environmentId')
+  async updateEnvironment(
+    @Param('projectId') projectId: string,
+    @Param('environmentId') environmentId: string,
+    @Body() data: { name?: string }
+  ) {
+    return this.projectService.updateEnvironment(projectId, environmentId, data);
+  }
+
+  @Get('environments/:projectId')
+  async listEnvironments(@Param('projectId') projectId: string) {
+    return this.projectService.listEnvironments(projectId);
   }
 }

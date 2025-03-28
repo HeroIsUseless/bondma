@@ -43,27 +43,38 @@ model Membership {
 }
 
 model Project {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  url          String
+  description  String?
+  environments Environment[] // Relation to environments
+  teamId       String        @db.ObjectId
+  team         Team          @relation("ProjectInTeam", fields: [teamId], references: [id])
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Environment {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
-  url         String
+  type        String   // "development", "test", "staging", "production"
   defaultLang String?
-  tokens      Token[]
-  teamId      String   @db.ObjectId
-  team        Team     @relation("ProjectInTeam", fields: [teamId], references: [id])
-  description String?
   languages   String[]
+  tokens      Token[]
+  projectId   String   @db.ObjectId
+  project     Project  @relation(fields: [projectId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
 model Token {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  key          String 
-  translations Json
-  tags         String[]
-  comment      String?
-  projectId    String   @db.ObjectId
-  Project      Project  @relation(fields: [projectId], references: [id])
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  key           String
+  tags          String[]
+  comment       String?
+  translations  Json
+  environmentId String      @db.ObjectId
+  environment   Environment @relation(fields: [environmentId], references: [id])
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
 }
