@@ -21,7 +21,7 @@ Bondma is a modern multilingual translation management platform designed to simp
 ## Tech Stack
 
 - **Frontend**: Next.js, React, TailwindCSS, Jotai
-- **Backend**: NestJS, PostgreSQL
+- **Backend**: NestJS, MongoDB
 - **Deployment**: Docker, Kubernetes
 
 ## Quick Start
@@ -46,11 +46,12 @@ pnpm run dev
 ### Prerequisites
 
 - Node.js 18+
-- PostgreSQL 14+
+- MongoDB 14+
 - Docker (optional)
 
 ### Contact
 
+![weixin](./doc/readme/weixin.jpg)
 ![qq](./doc/readme/qq.png)
 
 ### Donation

@@ -20,7 +20,7 @@ Bondma 是一个现代化的多语言翻译管理平台，旨在简化应用程�
 ## 技术栈
 
 - **前端**：Next.js, React, TailwindCSS, Jotai
-- **后端**：NestJS, PostgreSQL
+- **后端**：NestJS, MongoDB
 - **部署**：Docker, Kubernetes
 
 ## 快速开始
@@ -45,11 +45,12 @@ pnpm run dev
 ### 前置条件
 
 - Node.js 18+
-- PostgreSQL 14+
+- MongoDB 14+
 - Docker (可选)
 
 ### 联系方式
 
+![weixin](./weixin.jpg)
 ![qq](./qq.png)
 
 ### 打赏
