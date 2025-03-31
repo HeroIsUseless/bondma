@@ -34,7 +34,6 @@ export class ProjectService {
         name: 'Production',
         type: 'production',
         languages: data.languages ?? [],
-        tokens: [],
         projectId: project.id,
       },
     });
