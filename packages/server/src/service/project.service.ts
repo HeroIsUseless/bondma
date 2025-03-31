@@ -16,6 +16,7 @@ export class ProjectService {
     teamId: string;
     url: string;
     description?: string;
+    languages?: string[];
   }) {
     // Create project first
     const project = await this.prisma.project.create({
@@ -32,7 +33,8 @@ export class ProjectService {
       data: {
         name: 'Production',
         type: 'production',
-        languages: [],
+        languages: data.languages ?? [],
+        tokens: [],
         projectId: project.id,
       },
     });

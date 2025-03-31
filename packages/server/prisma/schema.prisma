@@ -57,7 +57,7 @@ model Project {
 model Environment {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
-  type        String   // "development", "test", "staging", "production"
+  type        String // "development", "test", "staging", "production"
   defaultLang String?
   languages   String[]
   tokens      Token[]
