@@ -73,6 +73,7 @@ model Token {
   tags          String[]
   comment       String?
   translations  Json
+  history       DateTime[]
   environmentId String      @db.ObjectId
   environment   Environment @relation(fields: [environmentId], references: [id])
   createdAt     DateTime    @default(now())
