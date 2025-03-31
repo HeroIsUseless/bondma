@@ -16,6 +16,7 @@ export class ProjectController {
   constructor(private projectService: ProjectService, private userService: UserService) {}
 
   @Post('create')
+  @UseGuards(AuthGuard)
   async createProject(@Body() data: { 
     name: string; 
     teamId: string; 
@@ -26,31 +27,51 @@ export class ProjectController {
     return this.projectService.createProject(data);
   }
 
-  @Get('all')
-  async findAllProjects() {
-    return this.projectService.findAllProjects();
-  }
-
   @Get('find/:projectId')
-  async findProjectById(@Param('projectId') projectId: string) {
+  @UseGuards(AuthGuard)
+  async findProjectById(
+    @Param('projectId') projectId: string,
+    @CurrentUser() user: UserPayload
+  ) {
+    const hasPermission = await this.projectService.checkUserProjectPermission(projectId, user.userId);
+    if (!hasPermission) {
+      throw new ForbiddenException('You do not have permission to access this project');
+    }
     return this.projectService.findProjectById(projectId);
   }
 
   @Put('update/:projectId')
-  async updateProject(@Param('projectId') projectId: string, @Body() data: { 
+  @UseGuards(AuthGuard)
+  async updateProject(
+    @Param('projectId') projectId: string, 
+    @CurrentUser() user: UserPayload,
+    @Body() data: { 
     name?: string;
     description?: string;
     languages?: string[];
   }) {
+    const hasPermission = await this.projectService.checkUserProjectPermission(projectId, user.userId);
+    if (!hasPermission) {
+      throw new ForbiddenException('You do not have permission to access this project');
+    }
     return this.projectService.updateProject(projectId, data);
   }
 
   @Delete('delete/:projectId')
-  async deleteProject(@Param('projectId') projectId: string) {
+  @UseGuards(AuthGuard)
+  async deleteProject(
+    @Param('projectId') projectId: string,
+    @CurrentUser() user: UserPayload,
+  ) {
+    const hasPermission = await this.projectService.checkUserProjectPermission(projectId, user.userId);
+    if (!hasPermission) {
+      throw new ForbiddenException('You do not have permission to access this project');
+    }
     return this.projectService.deleteProject(projectId);
   }
 
   @Get('team/:teamId')
+  @UseGuards(AuthGuard)
   async findProjectsByTeamId(@Param('teamId') teamId: string) {
     return this.projectService.findProjectsByTeamId(teamId);
   }
