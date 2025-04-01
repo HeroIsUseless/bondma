@@ -18,6 +18,7 @@ describe('TeamService', () => {
     membership: {
       create: jest.fn(),
       deleteMany: jest.fn(),
+      findMany: jest.fn(),
     },
   };
 
@@ -125,22 +126,6 @@ describe('TeamService', () => {
           }),
         }),
       );
-    });
-  });
-
-  describe('findAllTeams', () => {
-    it('should return all teams', async () => {
-      const expectedTeams = [
-        { id: 'team1', name: 'Team 1', url: 'team-1' },
-        { id: 'team2', name: 'Team 2', url: 'team-2' },
-      ];
-
-      mockPrismaService.team.findMany.mockResolvedValue(expectedTeams);
-
-      const result = await service.findAllTeams();
-
-      expect(mockPrismaService.team.findMany).toHaveBeenCalled();
-      expect(result).toEqual(expectedTeams);
     });
   });
 

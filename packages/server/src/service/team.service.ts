@@ -4,7 +4,6 @@ import { PrismaService } from './prisma.service';
 @Injectable()
 export class TeamService {
   constructor(private prisma: PrismaService) {}
-
   async createTeam(data: {
     name: string;
     url: string;
@@ -12,7 +11,29 @@ export class TeamService {
   }) {
     return this.prisma.$transaction(async (tx) => {
       const name = (data.name ?? '').trim();
-      const url = (data.url ?? '').trim() || Math.random().toString(36).slice(2, 10);
+      let url = (data.url ?? '').trim();
+      
+      // Ensure URL is not longer than 72 characters
+      if (url.length > 72) {
+        url = url.substring(0, 72);
+      }
+      
+      // If URL is empty, generate a random one
+      if (!url) {
+        url = Math.random().toString(36).slice(2, 10);
+      }
+      
+      // Check if the URL already exists and append random characters if needed
+      const existingTeam = await tx.team.findFirst({
+        where: { url }
+      });
+      
+      if (existingTeam) {
+        const randomSuffix = Math.random().toString(36).slice(2, 8);
+        // Ensure total length is still under 72 characters
+        url = url.substring(0, 64) + '-' + randomSuffix;
+      }
+
       const team = await tx.team.create({
         data: {
           name: name,
@@ -47,10 +68,6 @@ export class TeamService {
     });
   }
 
-  async findAllTeams() {
-    return this.prisma.team.findMany();
-  }
-  
   async findTeamsByUserId(userId: string) {
     return this.prisma.team.findMany({
       where: {
@@ -92,12 +109,55 @@ export class TeamService {
       }
     });
   }
-
   // Update team information
   async updateTeam(id: string, data: { name?: string; url?: string }) {
+    const updatedData: { name?: string; url?: string } = {};
+    
+    if (data.name !== undefined) {
+      updatedData.name = data.name.trim();
+    }
+    
+    if (data.url !== undefined) {
+      let url = data.url.trim();
+      
+      // Ensure URL is not longer than 72 characters
+      if (url.length > 72) {
+        url = url.substring(0, 72);
+      }
+      
+      // Check if the URL already exists and doesn't belong to the current team
+      const existingTeam = await this.prisma.team.findFirst({
+        where: { 
+          url,
+          id: { not: id }
+        }
+      });
+      
+      if (existingTeam) {
+        const randomSuffix = Math.random().toString(36).slice(2, 8);
+        // Ensure total length is still under 72 characters
+        url = url.substring(0, 64) + '-' + randomSuffix;
+      }
+      
+      updatedData.url = url;
+    }
+    
     return this.prisma.team.update({
       where: { id },
-      data
+      data: updatedData,
+      include: {
+        memberships: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                email: true
+              }
+            }
+          }
+        }
+      }
     });
   }
 
