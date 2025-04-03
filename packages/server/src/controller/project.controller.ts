@@ -4,6 +4,7 @@ import { AuthGuard } from '../jwt/guard';
 import { CurrentUser } from '../jwt/current-user.decorator';
 import { Response } from 'express';
 import { UserService } from 'src/service/user.service';
+import { MembershipService } from 'src/service/membership.service';
 
 interface UserPayload {
   userId: string;
@@ -13,17 +14,27 @@ interface UserPayload {
 
 @Controller('api/project')
 export class ProjectController {
-  constructor(private projectService: ProjectService, private userService: UserService) {}
-
+  constructor(
+    private projectService: ProjectService, 
+    private userService: UserService,
+    private membershipService: MembershipService,
+  ) {}
   @Post('create')
   @UseGuards(AuthGuard)
-  async createProject(@Body() data: { 
-    name: string; 
-    teamId: string; 
-    url: string; 
-    description?: string;
-    languages?: string[];
-  }) {
+  async createProject(
+    @Body() data: { 
+      name: string; 
+      teamId: string; 
+      url: string; 
+      description?: string;
+      languages?: string[];
+    },
+    @CurrentUser() user: UserPayload
+  ) {
+    const hasPermission = await this.membershipService.isManagerOrOwner(data.teamId, user.userId);
+    if (!hasPermission) {
+      throw new ForbiddenException('You do not have permission to create a project for this team');
+    }
     return this.projectService.createProject(data);
   }
 
@@ -48,7 +59,7 @@ export class ProjectController {
     @Body() data: { 
     name?: string;
     description?: string;
-    languages?: string[];
+    url?: string;
   }) {
     const hasPermission = await this.projectService.checkUserProjectPermission(projectId, user.userId);
     if (!hasPermission) {
@@ -69,20 +80,47 @@ export class ProjectController {
     }
     return this.projectService.deleteProject(projectId);
   }
-
   @Get('team/:teamId')
   @UseGuards(AuthGuard)
-  async findProjectsByTeamId(@Param('teamId') teamId: string) {
+  async findProjectsByTeamId(
+    @Param('teamId') teamId: string,
+    @CurrentUser() user: UserPayload
+  ) {
+    const hasPermission = await this.membershipService.isMember(teamId, user.userId);
+    if (!hasPermission) {
+      throw new ForbiddenException('You do not have permission to view projects for this team');
+    }
     return this.projectService.findProjectsByTeamId(teamId);
   }
 
   @Post('language/:environmentId')
-  async addLanguage(@Param('environmentId') environmentId: string, @Body() data: { language: string }) {
+  @UseGuards(AuthGuard)
+  async addLanguage(
+    @Param('environmentId') environmentId: string,
+    @Body() data: { language: string },
+    @CurrentUser() user: UserPayload
+  ) {
+    // Verify permission
+    const hasPermission = await this.projectService.checkUserEnvironmentPermission(environmentId, user.userId);
+    if (!hasPermission) {
+      throw new ForbiddenException('You do not have permission to modify this environment');
+    }
+
     return this.projectService.addLanguage(environmentId, data.language);
   }
-
   @Delete('language/:environmentId/:language')
-  async removeLanguage(@Param('environmentId') environmentId: string, @Param('language') language: string) {
+  @UseGuards(AuthGuard)
+  async removeLanguage(
+    @Param('environmentId') environmentId: string, 
+    @Param('language') language: string, 
+    @CurrentUser() user: UserPayload
+  ) {
+    // Verify permission
+    const hasPermission = await this.projectService.checkUserEnvironmentPermission(environmentId, user.userId);
+    if (!hasPermission) {
+      throw new ForbiddenException('You do not have permission to modify this environment');
+    }
+
     return this.projectService.removeLanguage(environmentId, language);
   }
 
@@ -106,16 +144,7 @@ export class ProjectController {
     @CurrentUser() user: UserPayload
   ) {
     // Verify permission
-    const environment = await this.projectService.prisma.environment.findUnique({
-      where: { id: environmentId },
-      select: { projectId: true }
-    });
-
-    if (!environment) {
-      throw new NotFoundException('Environment not found');
-    }
-
-    const hasPermission = await this.projectService.checkUserProjectPermission(environment.projectId, user.userId);
+    const hasPermission = await this.projectService.checkUserEnvironmentPermission(environmentId, user.userId);
     if (!hasPermission) {
       throw new ForbiddenException('You do not have permission to access this project');
     }
@@ -136,18 +165,8 @@ export class ProjectController {
     },
     @CurrentUser() user: UserPayload
   ) {
-    // Get environment to find its project
-    const environment = await this.projectService.prisma.environment.findUnique({
-      where: { id: data.environmentId },
-      select: { projectId: true }
-    });
-
-    if (!environment) {
-      throw new NotFoundException('Environment not found');
-    }
-
     // Verify permission
-    const hasPermission = await this.projectService.checkUserProjectPermission(environment.projectId, user.userId);
+    const hasPermission = await this.projectService.checkUserEnvironmentPermission(data.environmentId, user.userId);
     if (!hasPermission) {
       throw new ForbiddenException('You do not have permission to create content in this project');
     }
@@ -167,7 +186,7 @@ export class ProjectController {
       throw new NotFoundException(`Project ${token.projectId} does not exist`);
     }
     // Verify permission
-    const hasPermission = await this.projectService.checkUserProjectPermission(token.projectId, user.userId);
+    const hasPermission = await this.projectService.checkUserProjectPermission(token.environmentId, user.userId);
     if (!hasPermission) {
       throw new ForbiddenException('You do not have permission to access this content');
     }
@@ -194,7 +213,7 @@ export class ProjectController {
       throw new NotFoundException(`Project ${token.projectId} does not exist`);
     }
     // Verify permission
-    const hasPermission = await this.projectService.checkUserProjectPermission(token.projectId, user.userId);
+    const hasPermission = await this.projectService.checkUserEnvironmentPermission(token.environmentId, user.userId);
     if (!hasPermission) {
       throw new ForbiddenException('You do not have permission to modify this content');
     }
@@ -215,7 +234,7 @@ export class ProjectController {
       throw new NotFoundException(`Project ${token.projectId} does not exist`);
     }
     // Verify permission
-    const hasPermission = await this.projectService.checkUserProjectPermission(token.projectId, user.userId);
+    const hasPermission = await this.projectService.checkUserEnvironmentPermission(token.environmentId, user.userId);
     if (!hasPermission) {
       throw new ForbiddenException('You do not have permission to delete this content');
     }
@@ -240,18 +259,8 @@ export class ProjectController {
     @CurrentUser() user: UserPayload,
     @Res() res: Response
   ) {
-    // Get environment to find its project
-    const environment = await this.projectService.prisma.environment.findUnique({
-      where: { id: environmentId },
-      select: { projectId: true }
-    });
-
-    if (!environment) {
-      throw new NotFoundException('Environment not found');
-    }
-
     // Verify permission
-    const hasPermission = await this.projectService.checkUserProjectPermission(environment.projectId, user.userId);
+    const hasPermission = await this.projectService.checkUserEnvironmentPermission(environmentId, user.userId);
     if (!hasPermission) {
       throw new ForbiddenException('You do not have permission to export this project');
     }
@@ -290,16 +299,6 @@ export class ProjectController {
     @Res() res: Response
   ) {
     try {
-      // Get environment to find its project
-      const environment = await this.projectService.prisma.environment.findUnique({
-        where: { id: environmentId },
-        select: { projectId: true }
-      });
-
-      if (!environment) {
-        throw new NotFoundException('Environment not found');
-      }
-      
       // First try to authenticate user
       let userId: string;
       
@@ -323,7 +322,7 @@ export class ProjectController {
       }
       
       // Verify project permission
-      const hasPermission = await this.projectService.checkUserProjectPermission(environment.projectId, userId);
+      const hasPermission = await this.projectService.checkUserEnvironmentPermission(environmentId, userId);
       if (!hasPermission) {
         throw new ForbiddenException('You do not have permission to download this project');
       }
@@ -367,18 +366,8 @@ export class ProjectController {
     },
     @CurrentUser() user: UserPayload
   ) {
-    // Get environment to find its project
-    const environment = await this.projectService.prisma.environment.findUnique({
-      where: { id: environmentId },
-      select: { projectId: true }
-    });
-
-    if (!environment) {
-      throw new NotFoundException('Environment not found');
-    }
-    
     // Verify permission
-    const hasPermission = await this.projectService.checkUserProjectPermission(environment.projectId, user.userId);
+    const hasPermission = await this.projectService.checkUserEnvironmentPermission(environmentId, user.userId);
     if (!hasPermission) {
       throw new ForbiddenException('You do not have permission to import content to this project');
     }
@@ -418,24 +407,48 @@ export class ProjectController {
   }
 
   @Delete('environment/:projectId/:environmentId')
+  @UseGuards(AuthGuard)
   async deleteEnvironment(
-    @Param('projectId') projectId: string,
-    @Param('environmentId') environmentId: string
+    @Param('environmentId') environmentId: string,
+    @CurrentUser() user: UserPayload
   ) {
-    return this.projectService.deleteEnvironment(projectId, environmentId);
+    // Verify permission
+    const hasPermission = await this.projectService.checkUserEnvironmentPermission(environmentId, user.userId);
+    if (!hasPermission) {
+      throw new ForbiddenException('You do not have permission to import content to this project');
+    }
+    
+    return this.projectService.deleteEnvironment(environmentId);
   }
 
   @Put('environment/:projectId/:environmentId')
+  @UseGuards(AuthGuard)
   async updateEnvironment(
-    @Param('projectId') projectId: string,
     @Param('environmentId') environmentId: string,
-    @Body() data: { name?: string }
+    @Body() data: { name?: string },
+    @CurrentUser() user: UserPayload
   ) {
-    return this.projectService.updateEnvironment(projectId, environmentId, data);
+    // Verify permission
+    const hasPermission = await this.projectService.checkUserEnvironmentPermission(environmentId, user.userId);
+    if (!hasPermission) {
+      throw new ForbiddenException('You do not have permission to import content to this project');
+    }
+    
+    return this.projectService.updateEnvironment(environmentId, data);
   }
 
   @Get('environments/:projectId')
-  async listEnvironments(@Param('projectId') projectId: string) {
+  @UseGuards(AuthGuard)
+  async listEnvironments(
+    @Param('projectId') projectId: string,
+    @CurrentUser() user: UserPayload
+  ) {
+    // Verify permission
+    const hasPermission = await this.projectService.checkUserProjectPermission(projectId, user.userId);
+    if (!hasPermission) {
+      throw new ForbiddenException('You do not have permission to import content to this project');
+    }
+    
     return this.projectService.listEnvironments(projectId);
   }
 }

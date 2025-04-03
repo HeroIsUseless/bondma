@@ -22,11 +22,6 @@ export class UserService {
         });
     }
 
-    // Query all users
-    async findAllUsers(): Promise<User[]> {
-        return this.prisma.user.findMany();
-    }
-
     // Query user by ID
     async findUserById(id: string): Promise<User | null> {
         return this.prisma.user.findUnique({

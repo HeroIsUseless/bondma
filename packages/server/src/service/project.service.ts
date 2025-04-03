@@ -95,6 +95,22 @@ export class ProjectService {
     });
   }
 
+  // Check if user has permission to access the environment
+  async checkUserEnvironmentPermission(environmentId: string, userId: string): Promise<boolean> {
+    // Get environment information to find its project
+    const environment = await this.prisma.environment.findUnique({
+      where: { id: environmentId },
+      select: { projectId: true }
+    });
+
+    if (!environment) {
+      throw new NotFoundException('Environment does not exist');
+    }
+
+    // Check if user has permission to access the project
+    return this.checkUserProjectPermission(environment.projectId, userId);
+  }
+
   async addLanguage(environmentId: string, language: string) {
     const environment = await this.prisma.environment.findUnique({
       where: { id: environmentId }
@@ -249,7 +265,7 @@ export class ProjectService {
     }
 
     // Prepare update data
-    const updateData: any = {};
+    const updateData = {...token};
     if (data.key !== undefined) updateData.key = data.key;
     if (data.tags !== undefined) updateData.tags = data.tags;
     if (data.comment !== undefined) updateData.comment = data.comment;
@@ -275,16 +291,11 @@ export class ProjectService {
 
   // Delete token
   async deleteToken(tokenId: string) {
-    // Get token to confirm it exists
-    await this.getTokenById(tokenId);
-
-    // Delete token
     return this.prisma.token.delete({
       where: { id: tokenId }
     });
   }
 
-  // Export project content
   async exportProjectTokens(environmentId: string, options: {
     format: 'json' | 'csv' | 'xml' | 'yaml';
     scope?: 'all' | 'completed' | 'incomplete' | 'custom';
@@ -543,7 +554,7 @@ export class ProjectService {
 
     return this.prisma.environment.create({
       data: {
-        name: data.name,
+        name: data.name || `Environment-${Math.random().toString(36).slice(2, 10)}`,
         type: data.type,
         defaultLang: data.defaultLang,
         languages: data.languages || [],
@@ -552,10 +563,10 @@ export class ProjectService {
     });
   }
 
-  async deleteEnvironment(projectId: string, environmentId: string) {
+  async deleteEnvironment(environmentId: string) {
     const environment = await this.prisma.environment.findUnique({ where: { id: environmentId } });
-    if (!environment || environment.projectId !== projectId) {
-      throw new NotFoundException('Environment does not exist or does not belong to the project');
+    if (!environment) {
+      throw new NotFoundException('Environment does not exist');
     }
 
     // First delete all tokens associated with this environment
@@ -566,15 +577,15 @@ export class ProjectService {
     return this.prisma.environment.delete({ where: { id: environmentId } });
   }
 
-  async updateEnvironment(projectId: string, environmentId: string, data: { 
+  async updateEnvironment(environmentId: string, data: { 
     name?: string;
     type?: string;
     defaultLang?: string;
     languages?: string[];
   }) {
     const environment = await this.prisma.environment.findUnique({ where: { id: environmentId } });
-    if (!environment || environment.projectId !== projectId) {
-      throw new NotFoundException('Environment does not exist or does not belong to the project');
+    if (!environment) {
+      throw new NotFoundException('Environment does not exist');
     }
 
     return this.prisma.environment.update({
